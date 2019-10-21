@@ -65,12 +65,11 @@
                 #money {
                     position: absolute;
                     bottom: 0;
-                    left: 50%;
-                    transform: translate(-50%,0);
+                    left: 13%;
                     background-color: rgb(2, 0, 140);
                     font-family: Calibri, san-serif;
                     border: 2px solid black;
-                    width: 30%; 
+                    width: 40%; 
                     height: 9.5%;
                     color: white;
                     font-size: 3vw;
@@ -82,7 +81,7 @@
 
                 button {
                     position: absolute;
-                    bottom: 3%;
+                    bottom: 0;
                     right: 0;
                     border-radius: 15px;
                     width: 30%;
@@ -127,7 +126,7 @@
         
         
         <div id="money">
-            $100
+            1000
         </div>
         <!-- play button -->
         <button id="play" type="button">Play a hand</button>
@@ -143,7 +142,10 @@
         </div>
         <script>
             var leftFrame = document.getElementById("left-frame");
-            console.log(leftFrame.style.height);
+            var money = document.getElementById("money");
+            var moneyAmount = 30023400;
+            var numberString = moneyAmount.toLocaleString("en");
+            money.innerHTML = "$" + numberString;
             var debug = document.getElementById("debug");
 
         </script>

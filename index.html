@@ -4,7 +4,97 @@
         <meta charset="utf-8">
         <title>Incremental Poker</title>
             <style>
-                
+                html{
+                    height: 100%;
+                }
+
+                body {
+                    position: absolute;
+                    background-image: linear-gradient(to right, rgb(240,240,240), rgb(40,40,40));
+                    width: 99%;
+                    padding-top: 42%;
+                }
+
+                #left-frame {
+                    top: 0;
+                    position: absolute;
+                    width: 60%;
+                    padding-top: 40%;
+                    text-align: center;
+                }
+                #right-frame {
+                    top: 0;
+                    right: 0;
+                    position: absolute;
+                    width: 37.6%;
+                    margin-right: 2%;
+                    padding-top: 40%;
+                    text-align: center;
+                }
+
+                #upgrades-container {
+                    position: absolute;
+                    top: 0;
+                    width: 100%;
+                    padding-top: 50%;
+                }
+
+                .each-upgrade {
+                    position: absolute;
+                    top: 0;
+                    width: 99%;
+                    padding-top: 8%;
+                }
+
+                #upgrade-heading {
+                    top: 0;
+                }
+
+                #upgrade-1{
+                    top: 16.66%;
+                }
+
+                #upgrade-2{
+                    top: 33.33%;
+                }
+
+                #upgrade-3{
+                    top: 50%;
+                }
+
+                #upgrade-4{
+                    top: 66.66%;
+                }
+
+                #upgrade-5{
+                    top: 83.33%;
+                }
+
+                h1 {
+                    position: absolute;
+                    top: 0;
+                    margin: 0;
+                    width: 100%;
+                    left: 50%;
+                    transform: translate(-50%,0);
+                    font-family: Calibri, san-serif;
+                    color: white;
+                    font-size: 2.3vw;
+                    text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
+                }
+
+                h2 {
+                    position: absolute;
+                    margin: 0;
+                    width:20%;
+                    top: 8%;
+                    left: 60%;
+                    font-family: Calibri, san-serif;
+                    color: white;
+                    font-size: 1.3vw;
+                    text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
+                }
+
                 #poker-table {
                     position: absolute;
                     width: 74%;
@@ -67,49 +157,80 @@
                     bottom: 0;
                     left: 13%;
                     background-color: rgb(2, 0, 140);
+                    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
                     font-family: Calibri, san-serif;
-                    border: 2px solid black;
                     width: 40%; 
                     height: 9.5%;
                     color: white;
                     font-size: 3vw;
                     border-radius: 15px;
                     text-align: center;
-
+                    text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
 
                 }
 
                 button {
                     position: absolute;
-                    bottom: 0;
-                    right: 0;
                     border-radius: 15px;
-                    width: 30%;
-                    height: 15%;
                     font-size: 3vw;
                     font-family: calibri, san-serif;
                     text-align: auto;
+                    background-color: rgb(0, 145, 202);
+                    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.4), 0 6px 20px 0 rgba(0,0,0,0.19);
+                    color: white;
+                    text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
+                }
+
+                .upgrade-button-class {
+                    font-size: 1.5vw;
+                    border-radius: 5px;
+                    top: 0;
+                    left: 5%;
+                    width: 47%;
+                    margin: 0;
                 }
 
                 #play {
-                    background-color: rgb(68, 187, 255);
+                    
+                    bottom: 0;
+                    right: 0;
+                    width: 30%;
+                    height: 15%;
+                    
+                }
+
+                #higher-stakes {
+                    bottom: 21%;
+                    left: 10%;
+                    height: 20%;
+                    width: 45%;
+                    border-bottom-left-radius: 0px;
+                    border-bottom-right-radius: 0px;
+                }
+
+                #lower-stakes {
+                    bottom: 0;
+                    left: 10%;
+                    height: 20%;
+                    width: 45%;
+                    border-top-left-radius: 0px;
+                    border-top-right-radius: 0px;
                 }
 
                 p {
+                    position: absolute;
                     font-family: calibri, san-serif;
-                    font-size: 200%;
+                    font-size: 2vw;
                     text-align: right;
                     text-align: bottom;
                     bottom: 0px;
+                    right: 0;
+                    color: white;
+                    text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
                 }
 
-                #left-frame {
-                    position: absolute;
-                    width: 60%;
-                    padding-top: 40%;
-                    text-align: center;
 
-                }
+
             </style>
     </head>
     <body>
@@ -131,15 +252,53 @@
         <!-- play button -->
         <button id="play" type="button">Play a hand</button>
     </div>
+    <div id="right-frame">
         
-        <div>
+        <!-- play higher stakes button -->
+        <button id="higher-stakes" type="button">Play higher stakes</button>
+        <!-- play lower stakes button -->
+        <button id="lower-stakes" type="button">Play lower stakes</button>
             <p>
-                1bb / 100 hands <br>
+                1bb / 100 hands <br><br>
                 5 days, 3 hours <br>
-                <br><br>
+                <br>
                 <span id="debug">some text</span>
             </p>
-        </div>
+            <div id="upgrades-container">
+                <div class="each-upgrade" id="upgrade-heading">
+                    <h1>
+                        Pay for coaching
+                    </h1>
+                </div>
+                <div class="each-upgrade" id="upgrade-1">
+                    <button class="upgrade-button-class" id="upgrade-1-button" type="button">Improve hand reading</button>
+                    <h2>
+                        Level 5
+                    </h2>
+                </div>
+                <div class="each-upgrade" id="upgrade-2">
+                    <button class="upgrade-button-class" id="upgrade-2-button" type="button">Improve poker face</button>
+                    <h2>
+                            Level 3
+                    </h2>
+                </div>
+                <div class="each-upgrade" id="upgrade-3">
+                    <button class="upgrade-button-class" id="upgrade-3-button" type="button">Lower variance play style</button>
+                    <h2>
+                            15 Variance
+                    </h2>
+                </div>
+                <div class="each-upgrade" id="upgrade-4">
+                    <button class="upgrade-button-class" id="upgrade-4-button" type="button">Think faster</button>
+                    <h2>
+                            6 Seconds
+                    </h2>
+                </div>
+                <div class="each-upgrade" id="upgrade-5">
+                    <button class="upgrade-button-class" id="upgrade-5-button" type="button">Other</button>
+                </div>
+            </div>
+    </div>
         <script>
             var leftFrame = document.getElementById("left-frame");
             var money = document.getElementById("money");

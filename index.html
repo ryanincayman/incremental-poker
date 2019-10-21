@@ -4,67 +4,148 @@
         <meta charset="utf-8">
         <title>Incremental Poker</title>
             <style>
-            #poker-table {
-                position: fixed;
-                top: 80px;
-                left: 80px;
-                width: 50%;
-            }
-            
-            #male-face {
-                position: fixed;
-                width: 7%;
-                top: 400px;
-                left: 350px;
-            }
+                
+                #poker-table {
+                    position: absolute;
+                    width: 74%;
+                    top: 9%;
+                    left: 50%;
+                    transform: translate(-50%,0);
+                }
+                
+                .avatars {
+                    position: absolute;
+                    width: 10%;
+                }
 
-            #female-face {
-                position: fixed;
-                width: 7%;
-                top: 20px;
-                left: 352px;
-            }
+                #male-face {
+                    bottom: 17.5%;
+                    left: 44.7%;
+                }
 
-            #boy-1-face {
-                position: fixed;
-                width: 7%;
-                top: 55px;
-                left: 112px;
-            }
+                #female-face {
+                    left: 44.7%;
+                    top: 0;
+                }
 
-            #boy-2-face {
-                position: fixed;
-                width: 7%;
-                top: 347px;
-                left: 625px;
-            }
+                #boy-1-face {
+                    top: 6%;
+                    left: 16%;
+                }
 
-            #senior-happy-face {
-                position: fixed;
-                width: 7%;
-                top: 339px;
-                left: 82px;
-            }
+                #boy-2-face {
+                    top: 56%;
+                    left: 76%;
+                }
 
-            #senior-angry-face {
-                position: fixed;
-                width: 7%;
-                top: 50px;
-                left: 600px;
-            }
+                #senior-happy-face {
+                    top: 54%;
+                    left: 13.3%;
+                }
+
+                #senior-angry-face {
+                    top: 5%;
+                    left: 73%;
+                }
+
+                #poker-chips-mine {
+                    position: absolute;
+                    width: 8%;
+                    top: 37%;
+                    left: 49%;
+                }
+
+                #poker-chips-theirs {
+                    position: absolute;
+                    width: 8%;
+                    top: 37%;
+                    left: 43%;
+                }
+
+                #money {
+                    position: absolute;
+                    bottom: 0;
+                    left: 50%;
+                    transform: translate(-50%,0);
+                    background-color: rgb(2, 0, 140);
+                    font-family: Calibri, san-serif;
+                    border: 2px solid black;
+                    width: 30%; 
+                    height: 9.5%;
+                    color: white;
+                    font-size: 3vw;
+                    border-radius: 15px;
+                    text-align: center;
+
+
+                }
+
+                button {
+                    position: absolute;
+                    bottom: 3%;
+                    right: 0;
+                    border-radius: 15px;
+                    width: 30%;
+                    height: 15%;
+                    font-size: 3vw;
+                    font-family: calibri, san-serif;
+                    text-align: auto;
+                }
+
+                #play {
+                    background-color: rgb(68, 187, 255);
+                }
+
+                p {
+                    font-family: calibri, san-serif;
+                    font-size: 200%;
+                    text-align: right;
+                    text-align: bottom;
+                    bottom: 0px;
+                }
+
+                #left-frame {
+                    position: absolute;
+                    width: 60%;
+                    padding-top: 40%;
+                    text-align: center;
+
+                }
             </style>
     </head>
     <body>
+    <div id="left-frame">
         <img id="poker-table" src="https://www.sccpre.cat/mypng/full/321-3212694_poker-table-png-forgetmenot-online-poker-table-png.png" alt="poker-table">
-        <img id="male-face" src="https://i.ibb.co/MMKWVWP/avatar-adult-male-transparent.png" alt="male-face">
-        <img id="female-face" src="https://i.ibb.co/dJmgmnP/avatar-adult-woman-transparent.png" alt="female-face">
-        <img id="boy-1-face" src="https://i.ibb.co/zHYyNmq/avatar-child-boy-transparent.png" alt="boy-1-face">
-        <img id="boy-2-face" src="https://i.ibb.co/wyj4nHF/avatar-child-boy-2-transparent.png" alt="boy-2-face">
-        <img id="senior-happy-face" src="https://i.ibb.co/Vw5M7hS/avatar-senior-male-happy-transparent.png" alt="senior-happy-face">
-        <img id="senior-angry-face" src="https://i.ibb.co/Pgs9f4Z/avatar-senior-male-grumpy-transparent.png" alt="senior-angry-face">
-
+        <img class= "avatars" id="male-face" src="https://i.ibb.co/MMKWVWP/avatar-adult-male-transparent.png" alt="male-face">
+        <img class= "avatars" id="female-face" src="https://i.ibb.co/dJmgmnP/avatar-adult-woman-transparent.png" alt="female-face">
+        <img class= "avatars" id="boy-1-face" src="https://i.ibb.co/zHYyNmq/avatar-child-boy-transparent.png" alt="boy-1-face">
+        <img class= "avatars" id="boy-2-face" src="https://i.ibb.co/wyj4nHF/avatar-child-boy-2-transparent.png" alt="boy-2-face">
+        <img class= "avatars" id="senior-happy-face" src="https://i.ibb.co/Vw5M7hS/avatar-senior-male-happy-transparent.png" alt="senior-happy-face">
+        <img class= "avatars" id="senior-angry-face" src="https://i.ibb.co/Pgs9f4Z/avatar-senior-male-grumpy-transparent.png" alt="senior-angry-face">
+        <img id="poker-chips-theirs" src="https://i.ibb.co/6vC2Gqj/poker-chips.png" alt="poker-chips">
+        <img id="poker-chips-mine" src="https://i.ibb.co/6vC2Gqj/poker-chips.png" alt="poker-chips">
+        
+        
+        <div id="money">
+            $100
+        </div>
+        <!-- play button -->
+        <button id="play" type="button">Play a hand</button>
+    </div>
+        
+        <div>
+            <p>
+                1bb / 100 hands <br>
+                5 days, 3 hours <br>
+                <br><br>
+                <span id="debug">some text</span>
+            </p>
+        </div>
         <script>
-            
+            var leftFrame = document.getElementById("left-frame");
+            console.log(leftFrame.style.height);
+            var debug = document.getElementById("debug");
+
         </script>
     </body>
 </html>

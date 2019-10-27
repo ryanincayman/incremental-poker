@@ -17,7 +17,6 @@
 
                 img {
                     -webkit-filter: drop-shadow(5px 5px 5px rgb(0,0,0,0.4));
-                    
                 }
 
                 #left-frame {
@@ -92,12 +91,12 @@
                     position: absolute;
                     margin: 0;
                     padding: 2%;
-                    width:20%;
-                    top: 8%;
-                    right: 0;
+                    width:22%;
+                    top: 0;
+                    right: -2%;
                     font-family: Calibri, san-serif;
                     color: white;
-                    font-size: 1.3vw;
+                    font-size: 1.5vw;
                     text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
                 }
 
@@ -118,6 +117,12 @@
 
                 }
 
+                h4 {
+                    margin: 0;
+                    position: absolute;
+                    top: 50%;
+                }
+
                 #poker-table {
                     position: absolute;
                     width: 74%;
@@ -132,8 +137,13 @@
                 }
 
                 #male-face {
+
                     top: 60.5%;
                     left: 44.7%;
+                }
+
+                button:active {
+                    transform: translateY(2px);
                 }
 
                 #female-face {
@@ -163,16 +173,90 @@
 
                 #poker-chips-mine {
                     position: absolute;
-                    width: 8%;
+                    width: 7%;
                     top: 37%;
                     left: 49%;
                 }
 
                 #poker-chips-theirs {
                     position: absolute;
-                    width: 8%;
+                    width: 7%;
                     top: 37%;
                     left: 43%;
+                }
+
+                .cards {
+                    position: absolute;
+                    width: 4%;
+                    -webkit-filter: drop-shadow(1px 1px 1px rgb(0,0,0,0.4));
+                }
+
+                #male-card-left {
+                    top: -30%;
+                    left: 46%;
+                }
+
+                #male-card-right {
+                    top: -30%;
+                    left: 50%;
+                }
+
+                #female-card-left {
+                    top: -30%;
+                    left: 46%;
+                    transform: rotate(7deg);
+                }
+
+                #female-card-right {
+                    top: -30%;
+                    left: 50%;
+                }
+
+                #boy-1-card-left {
+                    top: -30%;
+                    left: 24%;
+                    transform: rotate(-6deg);
+                }
+
+                #boy-1-card-right {
+                    top: -30%;
+                    left: 27%;
+                }
+
+                #boy-2-card-left {
+                    top: -30%;
+                    left: 70%;
+                    transform: rotate(-27deg)
+                }
+
+                #boy-2-card-right {
+                    top: -30%;
+                    left: 73%;
+                    transform: rotate(-25deg)
+                }
+
+                #senior-happy-card-left {
+                    top: -30%;
+                    left: 23%;
+                    transform: rotate(25deg)
+                }
+
+                #senior-happy-card-right {
+                    top: -30%;
+                    left: 25%;
+                    transform: rotate(20deg)
+                }
+
+                #senior-angry-card-left {
+                    top: -30%;
+                    left: 71%;
+                    transform: rotate(10deg)
+                }
+
+                #senior-angry-card-right {
+                    top: -30%;
+                    left: 73%;
+                    transform: rotate(20deg)
                 }
 
                 #money {
@@ -186,11 +270,10 @@
                     width: 40%; 
                     height: 9.5%;
                     color: white;
-                    font-size: 3vw;
+                    font-size: 3.2vw;
                     border-radius: 15px;
                     text-align: center;
                     text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
-
                 }
 
                 button {
@@ -219,7 +302,7 @@
                     margin: 0;
                 }
 
-                #play {
+                #play-button {
                     
                     bottom: 0;
                     right: 0;
@@ -235,7 +318,7 @@
                     width: 45%;
                     border-bottom-left-radius: 0px;
                     border-bottom-right-radius: 0px;
-                    font-size: 2.4vw;
+                    font-size: 2.4vw;      
                 }
 
                 #lower-stakes {
@@ -260,7 +343,17 @@
                     text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
                 }
 
+                .transform {
+                    -webkit-transition: all 2s ease;  
+                    -moz-transition: all 2s ease;  
+                    -o-transition: all 2s ease;  
+                    -ms-transition: all 2s ease;  
+                    transition: all 2s ease;
+                }
 
+                .transform-active {
+                    background-color: #45CEE0;
+                }
 
             </style>
     </head>
@@ -275,13 +368,24 @@
         <img class= "avatars" id="senior-angry-face" src="https://i.ibb.co/Pgs9f4Z/avatar-senior-male-grumpy-transparent.png" alt="senior-angry-face">
         <img id="poker-chips-theirs" src="https://i.ibb.co/6vC2Gqj/poker-chips.png" alt="poker-chips">
         <img id="poker-chips-mine" src="https://i.ibb.co/6vC2Gqj/poker-chips.png" alt="poker-chips">
-        
+        <img class="cards" id="male-card-left" src="https://i.ibb.co/B6fSHSL/card-back.png" alt="playing-card">
+        <img class="cards" id="male-card-right" src="https://i.ibb.co/B6fSHSL/card-back.png" alt="playing-card">
+        <img class="cards" id="female-card-left" src="https://i.ibb.co/B6fSHSL/card-back.png" alt="playing-card">
+        <img class="cards" id="female-card-right" src="https://i.ibb.co/B6fSHSL/card-back.png" alt="playing-card">
+        <img class="cards" id="boy-1-card-left" src="https://i.ibb.co/B6fSHSL/card-back.png" alt="playing-card">
+        <img class="cards" id="boy-1-card-right" src="https://i.ibb.co/B6fSHSL/card-back.png" alt="playing-card">
+        <img class="cards" id="boy-2-card-left" src="https://i.ibb.co/B6fSHSL/card-back.png" alt="playing-card">
+        <img class="cards" id="boy-2-card-right" src="https://i.ibb.co/B6fSHSL/card-back.png" alt="playing-card">
+        <img class="cards" id="senior-happy-card-left" src="https://i.ibb.co/B6fSHSL/card-back.png" alt="playing-card">
+        <img class="cards" id="senior-happy-card-right" src="https://i.ibb.co/B6fSHSL/card-back.png" alt="playing-card">
+        <img class="cards" id="senior-angry-card-left" src="https://i.ibb.co/B6fSHSL/card-back.png" alt="playing-card">
+        <img class="cards" id="senior-angry-card-right" src="https://i.ibb.co/B6fSHSL/card-back.png" alt="playing-card">
         
         <div id="money">
-            1000
+
         </div>
         <!-- play button -->
-        <button id="play" type="button">Play a hand</button>
+        <button id="play-button" type="button">Play a hand</button>
     </div>
     <div id="right-frame">
         
@@ -296,7 +400,7 @@
                 <span id="debug">some text</span>
             </p>
             <div id="upgrades-container">
-                <div class="each-upgrade" id="upgrade-heading">
+                <div class="each-upgrade transform" id="upgrade-heading">
                     <h1>
                         Pay for coaching
                     </h1>
@@ -343,13 +447,79 @@
             </div>
     </div>
         <script>
-            var leftFrame = document.getElementById("left-frame");
+            var playButton = document.getElementById("play-button");
+            
             var money = document.getElementById("money");
             var moneyAmount = 30023400;
             var numberString = moneyAmount.toLocaleString("en");
-            money.innerHTML = "$" + numberString;
+            money.textContent = "$" + numberString;
             var debug = document.getElementById("debug");
+            debug.textContent = "random text";
 
+            // Making Javascript variables for all of the cards 
+            var maleCardLeft = document.getElementById("male-card-left");
+            var maleCardRight = document.getElementById("male-card-right");
+            var femaleCardLeft = document.getElementById("female-card-left");
+            var femaleCardRight = document.getElementById("female-card-right");
+            var boy1CardLeft = document.getElementById("boy-1-card-left");
+            var boy1CardRight = document.getElementById("boy-1-card-right");
+            var boy2CardLeft = document.getElementById("boy-2-card-left");
+            var boy2CardRight = document.getElementById("boy-2-card-right");
+            var seniorHappyCardLeft = document.getElementById("senior-happy-card-left");
+            var seniorHappyCardRight = document.getElementById("senior-happy-card-right");
+            var seniorAngryCardLeft = document.getElementById("senior-angry-card-left");
+            var seniorAngryCardRight = document.getElementById("senior-angry-card-right");
+            
+            var YPos = 100;
+            
+            // Controls the rate of cards being dealt
+            var divideRatio = 1.25;
+
+            // looped function for dealing the cards
+            var dealCards = function(){
+
+                maleCardLeft.style.top = (52 - YPos) + "%";
+                maleCardRight.style.top = (52 - YPos) + "%";
+                femaleCardLeft.style.top = (19 - YPos) + "%";
+                femaleCardRight.style.top = (19 - YPos) + "%";
+                boy1CardLeft.style.top = (24 - YPos) + "%";
+                boy1CardRight.style.top = (22 - YPos) + "%";
+                boy2CardLeft.style.top = (49 - YPos) + "%";
+                boy2CardRight.style.top = (46 - YPos) + "%";
+                seniorHappyCardLeft.style.top = (46 - YPos) + "%";
+                seniorHappyCardRight.style.top = (48 - YPos) + "%";
+                seniorAngryCardLeft.style.top = (25 - YPos) + "%";
+                seniorAngryCardRight.style.top = (26 - YPos) + "%";
+
+                YPos = YPos/divideRatio;
+
+                // Stops the timer loop if YPos gets below 0.01
+                if (YPos < 0.01) {
+                    timerIncrease = window.clearInterval(timerIncrease);
+                    YPos = 100;
+                    playButton.disabled = false;
+                }
+            }
+
+
+
+            // The playOneRound function which starts the window.setInterval function. Also disables the PLAY button so it can't be clicked twice.
+            var playOneRound = function() {
+              timerIncrease = window.setInterval(dealCards, 1000/30);
+              playButton.disabled = true;
+            }
+
+            // Event listener for a mousedown on the button for the playButton
+            playButton.addEventListener("mousedown", playOneRound);
+
+            $("#upgrade-5-button").click(function() {
+            $('.transform').toggleClass('transform-active');
+            });
+
+            //creating the timerIncrease variable. I don't know how to create the variable without making it run so I just chose to stop it with window.clearInterval immediately afterwards. 
+            var timerIncrease = window.setInterval(dealCards, 1000);
+            timerIncrease = window.clearInterval(timerIncrease);
+            
         </script>
     </body>
 </html>

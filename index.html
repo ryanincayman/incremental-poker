@@ -70,10 +70,6 @@
                     top: 66.66%;
                 }
 
-                #upgrade-5{
-                    top: 83.33%;
-                }
-
                 h1 {
                     position: absolute;
                     top: 0;
@@ -328,6 +324,49 @@
                     visibility: hidden;
                 }
 
+                #stakesDiv {
+                    position: absolute;
+                    top: 75%;
+                    left: 43%;
+                    width: 60%;
+                    text-align: right;
+                    font-size: 2vw;
+                }
+
+                #auto-play {
+                    position: absolute;
+                    top: 85%;
+                    left: 46.5%;
+                    width: 30%;
+                    text-align: center;
+                    font-size: 2vw;
+                }
+
+                #auto-play-box {
+                    position: absolute;
+                    top: 93%;
+                    left: 59.5%;
+                    width: 2.8%;
+                    height: 3.9%;
+                    border: 2px solid rgb(112, 112, 112);
+                    border-radius: 33%;
+                    background-color: rgb(230, 230, 230);
+                    text-align: center;
+                }
+
+                #auto-play-checked {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    width: 70%;
+                    height: 70%;
+                    border-radius: 33%;
+                    display: inline-block; 
+                    background-color: rgb(112, 112, 112);
+                    visibility: hidden;
+                }
+
                 button {
                     position: absolute;
                     border-radius: 15px;
@@ -399,18 +438,6 @@
                     text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
                 }
 
-                .transform {
-                    -webkit-transition: all 2s ease;  
-                    -moz-transition: all 2s ease;  
-                    -o-transition: all 2s ease;  
-                    -ms-transition: all 2s ease;  
-                    transition: all 2s ease;
-                }
-
-                .transform-active {
-                    background-color: #45CEE0;
-                }
-
             </style>
     </head>
     <body>
@@ -441,6 +468,11 @@
         <div class="text-info" id="my-bet">$250,000</div>
         <div class="text-info" id="their-bet">$250,000</div>
         <div class="text-info" id="win-or-loss">WIN</div>
+        <div class="text-info" id="stakesDiv">Stakes: <strong><span id="stakes">$10</span></strong> max bet</div>
+        <div class="text-info" id="auto-play">Autoplay</div>
+        <div id="auto-play-box">
+            <div id="auto-play-checked"></div>
+        </div>
         <div id="money"></div>
 
         <!-- play button -->
@@ -495,13 +527,10 @@
                     <h3>
                         $10,000,111
                     </h3>
-                    <button class="upgrade-button-class" id="upgrade-4-button" type="button">Think faster</button>
+                    <button class="upgrade-button-class" id="upgrade-4-button" type="button">Other</button>
                     <h2>
                             6 Seconds
                     </h2>
-                </div>
-                <div class="each-upgrade" id="upgrade-5">
-                    <button class="upgrade-button-class" id="upgrade-5-button" type="button">Other</button>
                 </div>
             </div>
     </div>
@@ -509,14 +538,16 @@
         <script>
 
             var cardDealtPosition = ["52%", "46%", "24%", "19%", "25%", "49%", "52%", "48%", "22%", "19%", "26%", "46%"]; // The vertical position of the cards from the top
-            var bankroll = 30023400;
-            var bankrollString = bankroll.toLocaleString("en");
+            var bankroll = 100;
             var dealSpeed = 125;    // Sets the speed of dealing the cards in milliseconds
             var howMuchToBet = 0;
+            var betSize = 0;
+            var totalBet = 0;
             var dealCardsCount = 0;
             var headBobCount = 0;
-            var stakes = 100;
-            $("#money").text("$" + bankrollString);
+            var stakes = 10;
+            var autoPlayOn = false;
+            $("#money").text("$" + bankroll.toLocaleString("en"));
             $("#debug").text("random text");
             $("#action").fadeOut(0).css("opacity", "1"); // set #action as 'fadeOut' and opacity back to 1
             
@@ -525,6 +556,10 @@
 
             $("#play-button").mousedown(function() {
                 $("#play-button").attr("disabled", true).addClass("nohover");
+                playAHand();
+            });
+
+            function playAHand() {
                 howMuchToBet = Math.random();
                 dealCardsCount = 0;
                 dealCards();
@@ -532,14 +567,70 @@
                     $("#action").text("Fold")
                     .delay(2500)
                     .fadeIn(200, fold);
-                }else if (howMuchToBet > 0.2 && howMuchToBet < 1) {
-                    var betSize = 0.1 * stakes;
-                    $("#action").text("Call")
-                    .delay(2500)
-                    .fadeIn(200, call);
+                }else if (howMuchToBet > 0.2 && howMuchToBet < 0.4) {
+                    betSize = 0.1 * stakes;
+                    remainingBettingAction();
+                }else if (howMuchToBet > 0.4 && howMuchToBet < 0.6) {
+                    betSize = 0.2 * stakes;
+                    remainingBettingAction();
+                }else if (howMuchToBet > 0.6 && howMuchToBet < 0.8) {
+                    betSize = 0.5 * stakes;
+                    remainingBettingAction();
+                }else if (howMuchToBet > 0.8) {
+                    betSize = stakes;
+                    remainingBettingAction();
+                }
+            }
+
+            function remainingBettingAction (){
+                totalBet = 2 * betSize;
+                if (howMuchToBet > 0.8) {
+                    $("#action").text("All in")
+                } else{
+                    var flipACoin = Math.random();
+                    if (flipACoin < 0.5) {
+                        $("#action").text("Call")
+                    }else {
+                        $("#action").text("Bet")
+                    }
+                }
+                $("#action").delay(2500)
+                .fadeIn(200, call);
+            }
+
+            $("#higher-stakes").mousedown(function() {
+                if(stakes < 99000000) {
+                    if(stakes % 9 === 4) {
+                        stakes = stakes * 2.5;
+                    }else {
+                    stakes = stakes * 2;
+                    }
+                    $("#stakes").text("$" + stakes.toLocaleString("en"));
                 }
             });
 
+            $("#lower-stakes").mousedown(function() {
+                
+                if(stakes > 19) {
+                    if(stakes % 9 === 1) {
+                        stakes = stakes / 2.5;
+                    }else {
+                    stakes = stakes / 2;
+                    }
+                    $("#stakes").text("$" + stakes.toLocaleString("en"));
+                }
+            });
+
+            $("#auto-play-box").click(function() {
+                if ($("#auto-play-checked").css("visibility") === "hidden") {
+                    $("#auto-play-checked").css("visibility", "visible");
+                    autoPlayOn = true;
+                } else if ($("#auto-play-checked").css("visibility") === "visible") {
+                    $("#auto-play-checked").css("visibility", "hidden");
+                    autoPlayOn = false;
+                }
+            });
+            
             function dealCards() {
                 $(".cards").fadeIn();
                 oneCard = $(".cards")[dealCardsCount];
@@ -552,7 +643,6 @@
             };
             
             function fold() {
-
                 $(".player-card").delay(500).animate({
                     top: "40%"
                 }, 300, fadeCards);
@@ -587,17 +677,19 @@
                     top: "37%",
                     left: "43%"
                 });
-                $("#my-bet").css("visibility", "visible").animate({
+                $("#my-bet").css("visibility", "visible").text("$" + betSize.toLocaleString("en")).animate({
                     top: "38%",
                     left: "57%"
                 }, function(){
+                    bankroll = bankroll - betSize;
+                    $("#money").text("$" + bankroll.toLocaleString("en"));
                     $("#my-bet").delay(700).animate({
                         top: "30%",
                         left: "44%",
                         opacity: "0"
                     });
                 });
-                $("#their-bet").css("visibility", "visible").animate({
+                $("#their-bet").css("visibility", "visible").text("$" + betSize.toLocaleString("en")).animate({
                     top: "38%",
                     left: "12%"
                 }, function(){
@@ -606,9 +698,9 @@
                         left: "25%",
                         opacity: "0"
                     }, function(){
-                        $("#total-bet").css("visibility", "visible").delay(2000, function (){
+                        $("#total-bet").css("visibility", "visible").text("$" + totalBet.toLocaleString("en")).delay(2000, function (){
                             var headsOrTails = Math.random();
-                            if(headsOrTails < 0.5) {
+                            if(headsOrTails < 0.6) {
                                 winAnimation();
                             }else {
                                 lossAnimation();
@@ -635,6 +727,8 @@
                         top: "45%",
                         left: "44%",
                     }, function(){
+                        bankroll = bankroll + totalBet;
+                        $("#money").text("$" + bankroll.toLocaleString("en"));
                         $("#total-bet").fadeOut();
                         $("#poker-chips-mine").fadeOut();
                         $("#poker-chips-theirs").fadeOut(fadeCards);
@@ -673,7 +767,7 @@
                         headBobCount++
                         $("#male-face").animate({
                             top: "60.5%"
-                        }, 100, winHeadAnimation);
+                        }, 10 * headBobCount, winHeadAnimation);
                 });
                 }else {
                     headBobCount = 0;

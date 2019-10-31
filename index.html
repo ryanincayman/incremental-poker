@@ -173,15 +173,17 @@
                 #poker-chips-mine {
                     position: absolute;
                     width: 7%;
-                    top: 37%;
-                    left: 49%;
+                    top: 52%;
+                    left: 55%;
+                    visibility: hidden;
                 }
 
                 #poker-chips-theirs {
                     position: absolute;
                     width: 7%;
-                    top: 37%;
-                    left: 43%;
+                    top: 21%;
+                    left: 64%;
+                    visibility: hidden;
                 }
 
                 .cards {
@@ -258,14 +260,6 @@
                     transform: rotate(-25deg)
                 }
 
-                #poker-chips-mine {
-                    display: none;
-                }
-
-                #poker-chips-theirs {
-                    display: none;
-                }
-
                 #money {
                     position: absolute;
                     bottom: 0;
@@ -282,16 +276,56 @@
                     text-align: center;
                     text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
                 }
-
-                #action {
-                    position: absolute;
-                    top: 63%;
-                    left: 34%;
+                .text-info {
                     font-size: 2vw;
                     color: white;
                     text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
                     font-family: Calibri, san-serif;
+                }
+                #action {
+                    position: absolute;
+                    top: 63%;
+                    left: 24%;
                     opacity: 0;
+                    text-align: right;
+                    width: 20%;
+                }
+
+                #total-bet {
+                    position: absolute;
+                    top: 30%;
+                    left: 35%;
+                    width: 30%;
+                    text-align: center;
+                    visibility: hidden;
+                }
+
+                #my-bet {
+                    position: absolute;
+                    top: 53%;
+                    left: 63%;
+                    width: 30%;
+                    text-align: left;
+                    visibility: hidden;
+                }
+
+                #their-bet {
+                    position: absolute;
+                    top: 20%;
+                    left: 34%;
+                    width: 30%;
+                    text-align: right;
+                    visibility: hidden;
+                }
+
+                #win-or-loss {
+                    position: absolute;
+                    top: 44%;
+                    left: 35%;
+                    width: 30%;
+                    text-align: center;
+                    font-size: 3vw;
+                    visibility: hidden;
                 }
 
                 button {
@@ -402,7 +436,11 @@
         <img class="cards" id="female-card-right" src="https://i.ibb.co/B6fSHSL/card-back.png" alt="playing-card">
         <img class="cards" id="senior-angry-card-right" src="https://i.ibb.co/B6fSHSL/card-back.png" alt="playing-card">
         <img class="cards" id="boy-2-card-right" src="https://i.ibb.co/B6fSHSL/card-back.png" alt="playing-card">
-        <div id="action">Fold</div>
+        <div class="text-info" id="action">Fold</div>
+        <div class="text-info" id="total-bet">$500,000</div>
+        <div class="text-info" id="my-bet">$250,000</div>
+        <div class="text-info" id="their-bet">$250,000</div>
+        <div class="text-info" id="win-or-loss">WIN</div>
         <div id="money"></div>
 
         <!-- play button -->
@@ -475,56 +513,172 @@
             var bankrollString = bankroll.toLocaleString("en");
             var dealSpeed = 125;    // Sets the speed of dealing the cards in milliseconds
             var howMuchToBet = 0;
-            var i = 0;
+            var dealCardsCount = 0;
+            var headBobCount = 0;
+            var stakes = 100;
             $("#money").text("$" + bankrollString);
             $("#debug").text("random text");
             $("#action").fadeOut(0).css("opacity", "1"); // set #action as 'fadeOut' and opacity back to 1
             
-            var oneCard = $(".cards")[i];
+            var oneCard = $(".cards")[dealCardsCount];
             var $oneCard = $(oneCard);
 
             $("#play-button").mousedown(function() {
                 $("#play-button").attr("disabled", true).addClass("nohover");
                 howMuchToBet = Math.random();
-                i = 0;
+                dealCardsCount = 0;
                 dealCards();
-                if (howMuchToBet < 1) {
-                    $("#action").delay(2500).fadeIn(200, fold);
+                if (howMuchToBet < 0.2) {
+                    $("#action").text("Fold")
+                    .delay(2500)
+                    .fadeIn(200, fold);
+                }else if (howMuchToBet > 0.2 && howMuchToBet < 1) {
+                    var betSize = 0.1 * stakes;
+                    $("#action").text("Call")
+                    .delay(2500)
+                    .fadeIn(200, call);
                 }
             });
 
             function dealCards() {
                 $(".cards").fadeIn();
-                oneCard = $(".cards")[i];
+                oneCard = $(".cards")[dealCardsCount];
                 $oneCard = $(oneCard);  // convert from DOM to jQuery variable
                 $oneCard.animate({          // animate all the cards to fall down into their dealt positions
-                    top: cardDealtPosition[i]
+                    top: cardDealtPosition[dealCardsCount]
                 }, dealSpeed, dealCards
                 )
-                i++;
+                dealCardsCount++;
             };
             
             function fold() {
 
                 $(".player-card").delay(500).animate({
                     top: "40%"
-                }, 
-                
-                function(){
-                    $(".cards").delay(500).fadeOut(500, function(){
-                        for (k = 0; k < $(".cards").length; k++) {
-                        oneCard = $(".cards")[k];
-                        $oneCard = $(oneCard);  // convert from DOM to jQuery variable
-                        $oneCard.css("top", "-20%");
+                }, 300, fadeCards);
+            }
+
+            function fadeCards() {
+                $(".cards").delay(500).fadeOut(500, function(){
+                    for (k = 0; k < $(".cards").length; k++) {
+                    oneCard = $(".cards")[k];
+                    $oneCard = $(oneCard);  // convert from DOM to jQuery variable
+                    $oneCard.css("top", "-20%");
                     }
                     k = 0;
                     $("#action").fadeOut(function(){
-                            $("#play-button").attr("disabled", false).removeClass("nohover");
+                        $("#play-button").attr("disabled", false).removeClass("nohover");
                     });
-                    }); 
-                });
-            }
+                }); 
+                $("#poker-chips-mine").css("visibility", "hidden").fadeIn(0).css("top", "52%").css("left", "55%");
+                $("#poker-chips-theirs").css("visibility", "hidden").fadeIn(0).css("top", "21%").css("left", "64%");
+                $("#total-bet").css("visibility", "hidden").fadeIn(0).css("top", "30%").css("left", "35%");
+                $("#my-bet").css("opacity", "1").css("visibility", "hidden").fadeIn(0).css("top", "53%").css("left", "63%");
+                $("#their-bet").css("opacity", "1").css("visibility", "hidden").fadeIn(0).css("top", "20%").css("left", "34%");
+                $("#win-or-loss").css("opacity", "1").css("visibility", "hidden").fadeIn(0);
+            };
 
+            function call(){
+                $("#poker-chips-mine").css("visibility", "visible").animate({
+                    top: "37%",
+                    left: "49%"
+                });
+                $("#poker-chips-theirs").css("visibility", "visible").animate({
+                    top: "37%",
+                    left: "43%"
+                });
+                $("#my-bet").css("visibility", "visible").animate({
+                    top: "38%",
+                    left: "57%"
+                }, function(){
+                    $("#my-bet").delay(700).animate({
+                        top: "30%",
+                        left: "44%",
+                        opacity: "0"
+                    });
+                });
+                $("#their-bet").css("visibility", "visible").animate({
+                    top: "38%",
+                    left: "12%"
+                }, function(){
+                    $("#their-bet").delay(700).animate({
+                        top: "30%",
+                        left: "25%",
+                        opacity: "0"
+                    }, function(){
+                        $("#total-bet").css("visibility", "visible").delay(2000, function (){
+                            var headsOrTails = Math.random();
+                            if(headsOrTails < 0.5) {
+                                winAnimation();
+                            }else {
+                                lossAnimation();
+                            }
+                        });
+                    });
+                
+            });
+            };
+
+            
+
+            function winAnimation(){
+                $("#win-or-loss").text("WIN").css("visibility", "visible").fadeOut(0).delay(700).fadeIn(winHeadAnimation).delay(700).fadeOut(function(){
+                    $("#poker-chips-mine").animate({
+                        top: "52%",
+                        left: "55%"
+                    });
+                    $("#poker-chips-theirs").animate({
+                        top: "52%",
+                        left: "55%"
+                    });
+                    $("#total-bet").clearQueue().animate({
+                        top: "45%",
+                        left: "44%",
+                    }, function(){
+                        $("#total-bet").fadeOut();
+                        $("#poker-chips-mine").fadeOut();
+                        $("#poker-chips-theirs").fadeOut(fadeCards);
+                    });
+                    
+                });
+            };
+
+            function lossAnimation(){
+                $("#win-or-loss").text("LOSS").css("visibility", "visible").fadeOut(0).delay(700).fadeIn().delay(700).fadeOut(function(){
+                    $("#poker-chips-mine").animate({
+                        top: "21%",
+                        left: "64%"
+                    });
+                    $("#poker-chips-theirs").animate({
+                        top: "21%",
+                        left: "64%"
+                    });
+                    $("#total-bet").clearQueue().animate({
+                        top: "14%",
+                        left: "50%",
+                    }, function(){
+                        $("#total-bet").fadeOut();
+                        $("#poker-chips-mine").fadeOut();
+                        $("#poker-chips-theirs").fadeOut(fadeCards);
+                    });
+                    
+                });
+            };
+
+            function winHeadAnimation(){
+                if (headBobCount < 14){
+                    $("#male-face").animate({
+                        top: "61.5%"
+                    }, 100, function(){
+                        headBobCount++
+                        $("#male-face").animate({
+                            top: "60.5%"
+                        }, 100, winHeadAnimation);
+                });
+                }else {
+                    headBobCount = 0;
+                }
+            }
         </script>
     </body>
 </html>

@@ -114,7 +114,6 @@
                     text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
                     border: 1px solid rgb(230,230,230);
                     border-radius: 9px;
-
                 }
 
                 h4 {
@@ -192,71 +191,79 @@
                 }
 
                 #male-card-left {
-                    top: -30%;
+                    top: -20%;
                     left: 46%;
-                }
-
-                #male-card-right {
-                    top: -30%;
-                    left: 50%;
-                }
-
-                #female-card-left {
-                    top: -30%;
-                    left: 46%;
-                    transform: rotate(7deg);
-                }
-
-                #female-card-right {
-                    top: -30%;
-                    left: 50%;
-                }
-
-                #boy-1-card-left {
-                    top: -30%;
-                    left: 24%;
-                    transform: rotate(-6deg);
-                }
-
-                #boy-1-card-right {
-                    top: -30%;
-                    left: 27%;
-                }
-
-                #boy-2-card-left {
-                    top: -30%;
-                    left: 70%;
-                    transform: rotate(-27deg)
-                }
-
-                #boy-2-card-right {
-                    top: -30%;
-                    left: 73%;
-                    transform: rotate(-25deg)
                 }
 
                 #senior-happy-card-left {
-                    top: -30%;
+                    top: -20%;
                     left: 23%;
                     transform: rotate(25deg)
                 }
 
-                #senior-happy-card-right {
-                    top: -30%;
-                    left: 25%;
-                    transform: rotate(20deg)
+                #boy-1-card-left {
+                    top: -20%;
+                    left: 24%;
+                    transform: rotate(-6deg);
+                }
+                
+                #female-card-left {
+                    top: -20%;
+                    left: 46%;
+                    transform: rotate(7deg);
                 }
 
                 #senior-angry-card-left {
-                    top: -30%;
+                    top: -20%;
                     left: 71%;
                     transform: rotate(10deg)
                 }
 
+                #boy-2-card-left {
+                    top: -20%;
+                    left: 70%;
+                    transform: rotate(-27deg)
+                }
+
+                #male-card-right {
+                    top: -20%;
+                    left: 50%;
+                }
+
+                #senior-happy-card-right {
+                    top: -20%;
+                    left: 25%;
+                    transform: rotate(20deg)
+                }
+
+                #boy-1-card-right {
+                    top: -20%;
+                    left: 27%;
+                }
+
+                #female-card-right {
+                    top: -20%;
+                    left: 50%;
+                }
+
                 #senior-angry-card-right {
-                    top: -30%;
+                    top: -20%;
                     left: 73%;
                     transform: rotate(20deg)
+                }
+
+                #boy-2-card-right {
+                    top: -20%;
+                    left: 73%;
+                    transform: rotate(-25deg)
+                }
+
+                #poker-chips-mine {
+                    display: none;
+                }
+
+                #poker-chips-theirs {
+                    display: none;
                 }
 
                 #money {
@@ -276,6 +283,17 @@
                     text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
                 }
 
+                #action {
+                    position: absolute;
+                    top: 63%;
+                    left: 34%;
+                    font-size: 2vw;
+                    color: white;
+                    text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
+                    font-family: Calibri, san-serif;
+                    opacity: 0;
+                }
+
                 button {
                     position: absolute;
                     border-radius: 15px;
@@ -290,6 +308,10 @@
 
                 button:hover {
                     background-color: rgb(0, 112, 156);
+                }
+
+                .nohover:hover {
+                    background-color: rgb(0, 145, 202);
                 }
 
                 .upgrade-button-class {
@@ -361,29 +383,28 @@
     <div id="left-frame">
         <img id="poker-table" src="https://www.sccpre.cat/mypng/full/321-3212694_poker-table-png-forgetmenot-online-poker-table-png.png" alt="poker-table">
         <img class= "avatars" id="male-face" src="https://i.ibb.co/MMKWVWP/avatar-adult-male-transparent.png" alt="male-face">
-        <img class= "avatars" id="female-face" src="https://i.ibb.co/dJmgmnP/avatar-adult-woman-transparent.png" alt="female-face">
-        <img class= "avatars" id="boy-1-face" src="https://i.ibb.co/zHYyNmq/avatar-child-boy-transparent.png" alt="boy-1-face">
-        <img class= "avatars" id="boy-2-face" src="https://i.ibb.co/wyj4nHF/avatar-child-boy-2-transparent.png" alt="boy-2-face">
         <img class= "avatars" id="senior-happy-face" src="https://i.ibb.co/Vw5M7hS/avatar-senior-male-happy-transparent.png" alt="senior-happy-face">
+        <img class= "avatars" id="boy-1-face" src="https://i.ibb.co/zHYyNmq/avatar-child-boy-transparent.png" alt="boy-1-face">
+        <img class= "avatars" id="female-face" src="https://i.ibb.co/dJmgmnP/avatar-adult-woman-transparent.png" alt="female-face">
         <img class= "avatars" id="senior-angry-face" src="https://i.ibb.co/Pgs9f4Z/avatar-senior-male-grumpy-transparent.png" alt="senior-angry-face">
+        <img class= "avatars" id="boy-2-face" src="https://i.ibb.co/wyj4nHF/avatar-child-boy-2-transparent.png" alt="boy-2-face">
         <img id="poker-chips-theirs" src="https://i.ibb.co/6vC2Gqj/poker-chips.png" alt="poker-chips">
         <img id="poker-chips-mine" src="https://i.ibb.co/6vC2Gqj/poker-chips.png" alt="poker-chips">
-        <img class="cards" id="male-card-left" src="https://i.ibb.co/B6fSHSL/card-back.png" alt="playing-card">
-        <img class="cards" id="male-card-right" src="https://i.ibb.co/B6fSHSL/card-back.png" alt="playing-card">
-        <img class="cards" id="female-card-left" src="https://i.ibb.co/B6fSHSL/card-back.png" alt="playing-card">
-        <img class="cards" id="female-card-right" src="https://i.ibb.co/B6fSHSL/card-back.png" alt="playing-card">
-        <img class="cards" id="boy-1-card-left" src="https://i.ibb.co/B6fSHSL/card-back.png" alt="playing-card">
-        <img class="cards" id="boy-1-card-right" src="https://i.ibb.co/B6fSHSL/card-back.png" alt="playing-card">
-        <img class="cards" id="boy-2-card-left" src="https://i.ibb.co/B6fSHSL/card-back.png" alt="playing-card">
-        <img class="cards" id="boy-2-card-right" src="https://i.ibb.co/B6fSHSL/card-back.png" alt="playing-card">
+        <img class="cards player-card" id="male-card-left" src="https://i.ibb.co/B6fSHSL/card-back.png" alt="playing-card">
         <img class="cards" id="senior-happy-card-left" src="https://i.ibb.co/B6fSHSL/card-back.png" alt="playing-card">
-        <img class="cards" id="senior-happy-card-right" src="https://i.ibb.co/B6fSHSL/card-back.png" alt="playing-card">
+        <img class="cards" id="boy-1-card-left" src="https://i.ibb.co/B6fSHSL/card-back.png" alt="playing-card">
+        <img class="cards" id="female-card-left" src="https://i.ibb.co/B6fSHSL/card-back.png" alt="playing-card">
         <img class="cards" id="senior-angry-card-left" src="https://i.ibb.co/B6fSHSL/card-back.png" alt="playing-card">
+        <img class="cards" id="boy-2-card-left" src="https://i.ibb.co/B6fSHSL/card-back.png" alt="playing-card">
+        <img class="cards player-card" id="male-card-right" src="https://i.ibb.co/B6fSHSL/card-back.png" alt="playing-card">
+        <img class="cards" id="senior-happy-card-right" src="https://i.ibb.co/B6fSHSL/card-back.png" alt="playing-card">
+        <img class="cards" id="boy-1-card-right" src="https://i.ibb.co/B6fSHSL/card-back.png" alt="playing-card">
+        <img class="cards" id="female-card-right" src="https://i.ibb.co/B6fSHSL/card-back.png" alt="playing-card">
         <img class="cards" id="senior-angry-card-right" src="https://i.ibb.co/B6fSHSL/card-back.png" alt="playing-card">
-        
-        <div id="money">
+        <img class="cards" id="boy-2-card-right" src="https://i.ibb.co/B6fSHSL/card-back.png" alt="playing-card">
+        <div id="action">Fold</div>
+        <div id="money"></div>
 
-        </div>
         <!-- play button -->
         <button id="play-button" type="button">Play a hand</button>
     </div>
@@ -446,80 +467,64 @@
                 </div>
             </div>
     </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
         <script>
-            var playButton = document.getElementById("play-button");
+
+            var cardDealtPosition = ["52%", "46%", "24%", "19%", "25%", "49%", "52%", "48%", "22%", "19%", "26%", "46%"]; // The vertical position of the cards from the top
+            var bankroll = 30023400;
+            var bankrollString = bankroll.toLocaleString("en");
+            var dealSpeed = 125;    // Sets the speed of dealing the cards in milliseconds
+            var howMuchToBet = 0;
+            var i = 0;
+            $("#money").text("$" + bankrollString);
+            $("#debug").text("random text");
+            $("#action").fadeOut(0).css("opacity", "1"); // set #action as 'fadeOut' and opacity back to 1
             
-            var money = document.getElementById("money");
-            var moneyAmount = 30023400;
-            var numberString = moneyAmount.toLocaleString("en");
-            money.textContent = "$" + numberString;
-            var debug = document.getElementById("debug");
-            debug.textContent = "random text";
+            var oneCard = $(".cards")[i];
+            var $oneCard = $(oneCard);
 
-            // Making Javascript variables for all of the cards 
-            var maleCardLeft = document.getElementById("male-card-left");
-            var maleCardRight = document.getElementById("male-card-right");
-            var femaleCardLeft = document.getElementById("female-card-left");
-            var femaleCardRight = document.getElementById("female-card-right");
-            var boy1CardLeft = document.getElementById("boy-1-card-left");
-            var boy1CardRight = document.getElementById("boy-1-card-right");
-            var boy2CardLeft = document.getElementById("boy-2-card-left");
-            var boy2CardRight = document.getElementById("boy-2-card-right");
-            var seniorHappyCardLeft = document.getElementById("senior-happy-card-left");
-            var seniorHappyCardRight = document.getElementById("senior-happy-card-right");
-            var seniorAngryCardLeft = document.getElementById("senior-angry-card-left");
-            var seniorAngryCardRight = document.getElementById("senior-angry-card-right");
-            
-            var YPos = 100;
-            
-            // Controls the rate of cards being dealt
-            var divideRatio = 1.25;
-
-            // looped function for dealing the cards
-            var dealCards = function(){
-
-                maleCardLeft.style.top = (52 - YPos) + "%";
-                maleCardRight.style.top = (52 - YPos) + "%";
-                femaleCardLeft.style.top = (19 - YPos) + "%";
-                femaleCardRight.style.top = (19 - YPos) + "%";
-                boy1CardLeft.style.top = (24 - YPos) + "%";
-                boy1CardRight.style.top = (22 - YPos) + "%";
-                boy2CardLeft.style.top = (49 - YPos) + "%";
-                boy2CardRight.style.top = (46 - YPos) + "%";
-                seniorHappyCardLeft.style.top = (46 - YPos) + "%";
-                seniorHappyCardRight.style.top = (48 - YPos) + "%";
-                seniorAngryCardLeft.style.top = (25 - YPos) + "%";
-                seniorAngryCardRight.style.top = (26 - YPos) + "%";
-
-                YPos = YPos/divideRatio;
-
-                // Stops the timer loop if YPos gets below 0.01
-                if (YPos < 0.01) {
-                    timerIncrease = window.clearInterval(timerIncrease);
-                    YPos = 100;
-                    playButton.disabled = false;
+            $("#play-button").mousedown(function() {
+                $("#play-button").attr("disabled", true).addClass("nohover");
+                howMuchToBet = Math.random();
+                i = 0;
+                dealCards();
+                if (howMuchToBet < 1) {
+                    $("#action").delay(2500).fadeIn(200, fold);
                 }
-            }
-
-
-
-            // The playOneRound function which starts the window.setInterval function. Also disables the PLAY button so it can't be clicked twice.
-            var playOneRound = function() {
-              timerIncrease = window.setInterval(dealCards, 1000/30);
-              playButton.disabled = true;
-            }
-
-            // Event listener for a mousedown on the button for the playButton
-            playButton.addEventListener("mousedown", playOneRound);
-
-            $("#upgrade-5-button").click(function() {
-            $('.transform').toggleClass('transform-active');
             });
 
-            //creating the timerIncrease variable. I don't know how to create the variable without making it run so I just chose to stop it with window.clearInterval immediately afterwards. 
-            var timerIncrease = window.setInterval(dealCards, 1000);
-            timerIncrease = window.clearInterval(timerIncrease);
+            function dealCards() {
+                $(".cards").fadeIn();
+                oneCard = $(".cards")[i];
+                $oneCard = $(oneCard);  // convert from DOM to jQuery variable
+                $oneCard.animate({          // animate all the cards to fall down into their dealt positions
+                    top: cardDealtPosition[i]
+                }, dealSpeed, dealCards
+                )
+                i++;
+            };
             
+            function fold() {
+
+                $(".player-card").delay(500).animate({
+                    top: "40%"
+                }, 
+                
+                function(){
+                    $(".cards").delay(500).fadeOut(500, function(){
+                        for (k = 0; k < $(".cards").length; k++) {
+                        oneCard = $(".cards")[k];
+                        $oneCard = $(oneCard);  // convert from DOM to jQuery variable
+                        $oneCard.css("top", "-20%");
+                    }
+                    k = 0;
+                    $("#action").fadeOut(function(){
+                            $("#play-button").attr("disabled", false).removeClass("nohover");
+                    });
+                    }); 
+                });
+            }
+
         </script>
     </body>
 </html>

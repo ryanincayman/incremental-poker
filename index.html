@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="icon" href="https://i.ibb.co/10g7XTP/favicon-incremental-poker.png">
         <meta charset="utf-8">
         <title>Incremental Poker</title>
             <style>
@@ -52,22 +53,28 @@
 
                 #upgrade-heading {
                     top: 0;
+                    left: -1.8%;
+                    visibility: hidden;
                 }
 
                 #upgrade-1{
                     top: 16.66%;
+                    visibility: hidden;
                 }
 
                 #upgrade-2{
                     top: 33.33%;
+                    visibility: hidden;
                 }
 
                 #upgrade-3{
                     top: 50%;
+                    visibility: hidden;
                 }
 
                 #upgrade-4{
                     top: 66.66%;
+                    visibility: hidden;
                 }
 
                 h1 {
@@ -256,6 +263,51 @@
                     transform: rotate(-25deg)
                 }
 
+                #grey-background {
+                    position: absolute;
+                    margin: 0;
+                    padding: 0;
+                    top: 0;
+                    width: 100%;
+                    padding-top: 45%;
+                    background-color: grey;
+                    opacity: 0.9;
+                    visibility: hidden;
+                }
+
+                #broke {
+                    position: absolute;
+                    margin: 0;
+                    padding: 0;
+                    top: 0;
+                    width: 100%;
+                    padding-top: 45%;
+                    text-align: center;
+                    overflow: hidden;
+                    visibility: hidden;
+                }
+
+                #enlarge {
+                    font-size: 4vw;
+                }
+
+                #piggy-bank {
+                    position: absolute;
+                    left: 50%;
+                    top: 72%;
+                    transform: translate(-50%, -50%);
+                    width: 25%;
+                }
+
+                #hammer {
+                    position: absolute;
+                    left: 550px;
+                    top: 170px;
+                    transform: rotate(30deg);
+                    transform-origin: bottom right;
+                    width: 35%;
+                }
+
                 #money {
                     position: absolute;
                     bottom: 0;
@@ -327,9 +379,9 @@
                 #stakesDiv {
                     position: absolute;
                     top: 75%;
-                    left: 43%;
+                    left: 55%;
                     width: 60%;
-                    text-align: right;
+                    text-align: center;
                     font-size: 2vw;
                 }
 
@@ -340,6 +392,7 @@
                     width: 30%;
                     text-align: center;
                     font-size: 2vw;
+                    visibility: hidden;
                 }
 
                 #auto-play-box {
@@ -352,6 +405,7 @@
                     border-radius: 33%;
                     background-color: rgb(230, 230, 230);
                     text-align: center;
+                    visibility: hidden;
                 }
 
                 #auto-play-checked {
@@ -413,7 +467,8 @@
                     width: 45%;
                     border-bottom-left-radius: 0px;
                     border-bottom-right-radius: 0px;
-                    font-size: 2.4vw;      
+                    font-size: 2.4vw;     
+                    visibility: hidden; 
                 }
 
                 #lower-stakes {
@@ -424,6 +479,15 @@
                     border-top-left-radius: 0px;
                     border-top-right-radius: 0px;
                     font-size: 2.4vw;
+                    visibility: hidden;
+                }
+
+                #winrate {
+                    visibility: hidden;
+                }
+
+                #hands-played {
+                    visibility: hidden;
                 }
 
                 p {
@@ -485,118 +549,133 @@
         <!-- play lower stakes button -->
         <button id="lower-stakes" type="button">Play lower stakes</button>
             <p>
-                1bb / 100 hands <br><br>
-                5 days, 3 hours <br>
-                <br>
-                <span id="debug">some text</span>
+                <span id="winrate"></span><br><br>
+                <span id="hands-played"></span><br><br>
+                <span id="debug"></span>
             </p>
             <div id="upgrades-container">
-                <div class="each-upgrade transform" id="upgrade-heading">
+                <div class="each-upgrade" id="upgrade-heading">
                     <h1>
                         Pay for coaching
                     </h1>
                 </div>
                 <div class="each-upgrade" id="upgrade-1">
-                    <h3>
-                        $10,000,343
-                    </h3>
-                    <button class="upgrade-button-class" id="upgrade-1-button" type="button">Improve hand reading</button>
-                    <h2>
-                        Level 5
-                    </h2>
+                    <h3 id="upgrade-1-cost"></h3>
+                    <button class="upgrade-button-class" id="upgrade-1-button" type="button">Autoplay</button>
                 </div>
                 <div class="each-upgrade" id="upgrade-2">
-                    <h3>
-                        $10,000,342
-                    </h3>
-                    <button class="upgrade-button-class" id="upgrade-2-button" type="button">Improve poker face</button>
-                    <h2>
-                            Level 3
-                    </h2>
+                    <h3 id="upgrade-2-cost"></h3>
+                    <button class="upgrade-button-class" id="upgrade-2-button" type="button">Improve hand reading</button>
+                    <h2 id="upgrade-2-level"></h2>
                 </div>
                 <div class="each-upgrade" id="upgrade-3">
-                    <h3>
-                        $10,000,234
-                    </h3>
-                    <button class="upgrade-button-class" id="upgrade-3-button" type="button">Lower variance play style</button>
-                    <h2>
-                            15 Variance
-                    </h2>
+                    <h3 id="upgrade-3-cost"></h3>
+                    <button class="upgrade-button-class" id="upgrade-3-button" type="button">Improve poker face</button>
+                    <h2 id="upgrade-3-level"></h2>
                 </div>
                 <div class="each-upgrade" id="upgrade-4">
-                    <h3>
-                        $10,000,111
-                    </h3>
-                    <button class="upgrade-button-class" id="upgrade-4-button" type="button">Other</button>
-                    <h2>
-                            6 Seconds
-                    </h2>
+                    <h3 id="upgrade-4-cost"></h3>
+                    <button class="upgrade-button-class" id="upgrade-4-button" type="button">Lower variance play style</button>
+                    <h2 id="upgrade-4-level"></h2>
                 </div>
             </div>
+    </div>
+    <div id="grey-background"></div>
+    <div id="broke">
+        <h1><br><span id="enlarge">
+            You're broke! &#128517; <br>
+            Smash your piggy bank<br>
+            to try again
+            </span>
+        </h1>
+        <img id="piggy-bank" src="https://i.ibb.co/jrtjdDH/piggy-bank.png" alt="piggy-bank">
+        <img id="hammer" src="https://i.ibb.co/72JGt56/hammer.png" alt="hammer">
+        
     </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
         <script>
 
+            // Variable declaration
             var cardDealtPosition = ["52%", "46%", "24%", "19%", "25%", "49%", "52%", "48%", "22%", "19%", "26%", "46%"]; // The vertical position of the cards from the top
-            var bankroll = 100;
+
             var dealSpeed = 125;    // Sets the speed of dealing the cards in milliseconds
             var howMuchToBet = 0;
             var betSize = 0;
             var totalBet = 0;
-            var dealCardsCount = 0;
             var headBobCount = 0;
+            var gameProgressCount = 0;
             var stakes = 10;
-            var autoPlayOn = false;
-            $("#money").text("$" + bankroll.toLocaleString("en"));
-            $("#debug").text("random text");
-            $("#action").fadeOut(0).css("opacity", "1"); // set #action as 'fadeOut' and opacity back to 1
-            
+            var cycleReady = true;
+            var handsPlayed = 0;
+            var mouseX = 0; 
+            var mouseY = 0;
+            var upgrade2Level = 0;
+            var upgrade3Level = 0;
+            var dealCardsCount = 0;
             var oneCard = $(".cards")[dealCardsCount];
             var $oneCard = $(oneCard);
 
+            /*--variables to tweak for game balance------------*/
+
+            // upgrade starting costs
+            var upgrade1Cost = 90;
+            var upgrade2Cost = 100;
+            var upgrade3Cost = 100;
+            var upgrade4Cost = 1000;
+
+            var winrate = 7; 
+            var bankroll = 100;
+            var variance = 20;
+            var winratePerStake = 2;
+            var winratePerHandReadingLevel = 3;
+            var winratePerPokerFaceLevel = 2;
+
+            var averageBetSize = calcAveBetSize(variance, stakes);
+            var winPercent = calcWinPercent(winrate, stakes, averageBetSize);
+            /*------------------------------------------------------------------------*/
+            // temp game set up while creating game
+            
+            /*
+            $("#higher-stakes").css("visibility", "visible");
+            $("#lower-stakes").css("visibility", "visible");
+            $("#upgrade-1").css("visibility", "visible");
+            $("#upgrade-2").css("visibility", "visible");
+            $("#upgrade-3").css("visibility", "visible");
+            $("#upgrade-4").css("visibility", "visible");
+            $("#upgrade-heading").css("visibility", "visible");
+            */
+
+            
+            /*------------------------------------------------------------------------*/
+
+            // Game set up
+            $("#money").text("$" + bankroll.toLocaleString("en"));
+            $("#upgrade-1-cost").text("$" + upgrade1Cost.toLocaleString("en"));
+            $("#upgrade-2-cost").text("$" + upgrade2Cost.toLocaleString("en"));
+            $("#upgrade-3-cost").text("$" + upgrade3Cost.toLocaleString("en"));
+            $("#upgrade-4-cost").text("$" + upgrade4Cost.toLocaleString("en"));
+            $("#upgrade-2-level").text("Level " + upgrade2Level);
+            $("#upgrade-3-level").text("Level " + upgrade3Level);
+            $("#upgrade-4-level").text(variance + " Variance");
+
+            $("#stakes").text("$" + stakes.toLocaleString("en"));
+            $("#winrate").html(winrate + " max bets per<br>100 hands");
+
+            $("#action").fadeOut(0).css("opacity", "1"); // set #action as 'fadeOut' and opacity back to 1
+            $("#hands-played").text(handsPlayed + " hands played");
+
+            /*------------------------------------------------------------------------*/
+
+            // Buttons 
             $("#play-button").mousedown(function() {
-                $("#play-button").attr("disabled", true).addClass("nohover");
                 playAHand();
+                if (gameProgressCount > 6) {                       // change how many play throughs are required before the first upgrade is visible
+                    $("#upgrade-heading").css("visibility", "visible");
+                    $("#upgrade-1").css("visibility", "visible");
+                }  
+
+
             });
-
-            function playAHand() {
-                howMuchToBet = Math.random();
-                dealCardsCount = 0;
-                dealCards();
-                if (howMuchToBet < 0.2) {
-                    $("#action").text("Fold")
-                    .delay(2500)
-                    .fadeIn(200, fold);
-                }else if (howMuchToBet > 0.2 && howMuchToBet < 0.4) {
-                    betSize = 0.1 * stakes;
-                    remainingBettingAction();
-                }else if (howMuchToBet > 0.4 && howMuchToBet < 0.6) {
-                    betSize = 0.2 * stakes;
-                    remainingBettingAction();
-                }else if (howMuchToBet > 0.6 && howMuchToBet < 0.8) {
-                    betSize = 0.5 * stakes;
-                    remainingBettingAction();
-                }else if (howMuchToBet > 0.8) {
-                    betSize = stakes;
-                    remainingBettingAction();
-                }
-            }
-
-            function remainingBettingAction (){
-                totalBet = 2 * betSize;
-                if (howMuchToBet > 0.8) {
-                    $("#action").text("All in")
-                } else{
-                    var flipACoin = Math.random();
-                    if (flipACoin < 0.5) {
-                        $("#action").text("Call")
-                    }else {
-                        $("#action").text("Bet")
-                    }
-                }
-                $("#action").delay(2500)
-                .fadeIn(200, call);
-            }
 
             $("#higher-stakes").mousedown(function() {
                 if(stakes < 99000000) {
@@ -606,6 +685,11 @@
                     stakes = stakes * 2;
                     }
                     $("#stakes").text("$" + stakes.toLocaleString("en"));
+
+                    winrate -= winratePerStake;
+                    averageBetSize = calcAveBetSize(variance, stakes);
+                    winPercent = calcWinPercent(winrate, stakes, averageBetSize);
+                    $("#winrate").html(winrate + " max bets per<br>100 hands");
                 }
             });
 
@@ -618,19 +702,175 @@
                     stakes = stakes / 2;
                     }
                     $("#stakes").text("$" + stakes.toLocaleString("en"));
+
+                    winrate += winratePerStake;
+                    averageBetSize = calcAveBetSize(variance, stakes);
+                    winPercent = calcWinPercent(winrate, stakes, averageBetSize);
+                    $("#winrate").html(winrate + " max bets per<br>100 hands");
                 }
             });
 
-            $("#auto-play-box").click(function() {
+            $("#auto-play-box").mousedown(function() {
                 if ($("#auto-play-checked").css("visibility") === "hidden") {
                     $("#auto-play-checked").css("visibility", "visible");
-                    autoPlayOn = true;
+                    $("#play-button").css("opacity", "0.5");
                 } else if ($("#auto-play-checked").css("visibility") === "visible") {
                     $("#auto-play-checked").css("visibility", "hidden");
-                    autoPlayOn = false;
+                    $("#play-button").css("opacity", "1");
                 }
             });
-            
+
+            $("#upgrade-1-button").mousedown(function() {
+                if (bankroll > upgrade1Cost) {
+                    bankroll = bankroll - upgrade1Cost;
+                    $("#money").text("$" + bankroll.toLocaleString("en"));
+                    $("#upgrade-1").css("visibility", "hidden");
+                    $("#auto-play").css("visibility", "visible");
+                    $("#auto-play-box").css("visibility", "visible");
+                }
+            });
+
+            $("#upgrade-2-button").mousedown(function() {
+                if (bankroll > upgrade2Cost) {
+                    bankroll = bankroll - upgrade2Cost;
+                    $("#money").text("$" + bankroll.toLocaleString("en"));
+                    upgrade2Level++;
+                    upgrade2Cost = Math.floor(upgrade2Cost * 2.1258);
+                    winrate += winratePerHandReadingLevel;
+                    averageBetSize = calcAveBetSize(variance, stakes);
+                    winPercent = calcWinPercent(winrate, stakes, averageBetSize);
+                    $("#upgrade-2-level").text("Level " + upgrade2Level);
+                    $("#upgrade-2-cost").text("$" + upgrade2Cost.toLocaleString("en"));
+                    $("#winrate").html(winrate + " max bets per<br>100 hands");
+                }
+            });
+
+            $("#upgrade-3-button").mousedown(function() {
+                if (bankroll > upgrade3Cost) {
+                    bankroll = bankroll - upgrade3Cost;
+                    $("#money").text("$" + bankroll.toLocaleString("en"));
+                    upgrade3Level++;
+                    upgrade3Cost = Math.floor(upgrade3Cost * 1.9786);
+                    winrate += winratePerPokerFaceLevel;
+                    averageBetSize = calcAveBetSize(variance, stakes);
+                    winPercent = calcWinPercent(winrate, stakes, averageBetSize);
+                    $("#upgrade-3-level").text("Level " + upgrade3Level);
+                    $("#upgrade-3-cost").text("$" + upgrade3Cost.toLocaleString("en"));
+                    $("#winrate").html(winrate + " max bets per<br>100 hands");
+                }
+            });
+
+            $("#upgrade-4-button").mousedown(function() {
+                if (bankroll > upgrade4Cost && variance > 0) {
+                    bankroll = bankroll - upgrade4Cost;
+                    $("#money").text("$" + bankroll.toLocaleString("en"));
+                    variance--;
+                    upgrade4Cost = Math.floor(upgrade4Cost * 2.04542);
+                    averageBetSize = calcAveBetSize(variance, stakes);
+                    winPercent = calcWinPercent(winrate, stakes, averageBetSize);
+                    $("#upgrade-4-level").text(variance + " Variance");
+                    $("#upgrade-4-cost").text("$" + upgrade4Cost.toLocaleString("en"));
+                }
+            });
+
+
+
+            /*------------------------------------------------------------------------*/
+
+            // Functions
+
+
+
+            function calcAveBetSize (varianceInput, stakesInput) {
+                return (varianceInput / 100 + 0.5 * varianceInput / 100 + 0.1 * varianceInput / 100 + 0.2 * (1 - 4 * varianceInput / 100)) * stakesInput;
+            }
+
+            function calcWinPercent (winrateInput, stakesInput, averageBetSizeInput) {
+                return winrateInput * stakesInput / (200 * averageBetSizeInput) + 0.5;
+            }
+
+            function playAHand() {
+                if (bankroll === 0) {
+                    return
+                }
+
+                gameProgressCount++;
+
+                if (gameProgressCount > 50) {                       // change how many play throughs are required before the upgrade is visible
+                    $("#higher-stakes").css("visibility", "visible");
+                }  
+
+                if (gameProgressCount > 50) {                       // change how many play throughs are required before the upgrade is visible
+                    $("#lower-stakes").css("visibility", "visible");
+                }  
+
+                if (gameProgressCount > 150) {                       // change how many play throughs are required before the upgrade is visible
+                    $("#upgrade-2").css("visibility", "visible");
+                    $("#upgrade-3").css("visibility", "visible");
+                    $("#winrate").css("visibility", "visible");
+                    $("#hands-played").css("visibility", "visible");
+                }  
+                if (gameProgressCount > 500) {                       // change how many play throughs are required before the upgrade is visible
+                    $("#upgrade-4").css("visibility", "visible");
+                }  
+
+                $("#play-button").attr("disabled", true).addClass("nohover");
+                handsPlayed++;
+                $("#hands-played").text(handsPlayed + " hands played");
+                cycleReady = false;
+                howMuchToBet = Math.random();
+                dealCardsCount = 0;
+                dealCards();
+                if (howMuchToBet < variance / 100 ) {
+                    $("#action").text("Fold")
+                    .delay(2500)
+                    .fadeIn(200, fold);
+                }else if (howMuchToBet >= variance / 100 && howMuchToBet < 2 * (variance / 100) ) {
+                    betSize = 0.1 * stakes;
+                    remainingBettingAction();
+                }else if (howMuchToBet >= 2 * (variance / 100) && howMuchToBet < 3 * (variance / 100)) {
+                    betSize = stakes;
+                    remainingBettingAction();
+                }else if (howMuchToBet >= 3 * (variance / 100) && howMuchToBet < 4 * (variance / 100)) {
+                    betSize = 0.5 * stakes;
+                    remainingBettingAction();
+                }else if (howMuchToBet >= 4 * (variance / 100)) {
+                    betSize = 0.2 * stakes;
+                    remainingBettingAction();
+                }
+            }
+
+            function remainingBettingAction (){
+                if (betSize >= bankroll) {
+                    betSize = bankroll;
+                    $("#action").text("All in");
+                }else {
+                    if (howMuchToBet >= 2 * (variance / 100) && howMuchToBet < 3 * (variance / 100)) {
+                        $("#action").text("All in");
+                    } else{
+                        var flipACoin = Math.random();
+                        if (flipACoin < 0.5) {
+                            $("#action").text("Call");
+                        }else {
+                            $("#action").text("Bet");
+                        }
+                    }
+                }
+                totalBet = 2 * betSize;
+                $("#action").delay(2500)
+                .fadeIn(200, call);
+            }
+
+            function autoPlayFunction() {
+                // $("#debug").text(Math.round(winPercent*1000)/1000);
+                if ($("#auto-play-checked").css("visibility") === "visible" && cycleReady === true) {
+                    $("#play-button").attr("disabled", true).addClass("nohover");
+                    playAHand(); 
+                }
+            }
+
+            var continuousRunning = setInterval(autoPlayFunction, 1500);
+
             function dealCards() {
                 $(".cards").fadeIn();
                 oneCard = $(".cards")[dealCardsCount];
@@ -649,23 +889,28 @@
             }
 
             function fadeCards() {
-                $(".cards").delay(500).fadeOut(500, function(){
+                $(".cards").delay(500).fadeOut(function(){
                     for (k = 0; k < $(".cards").length; k++) {
                     oneCard = $(".cards")[k];
                     $oneCard = $(oneCard);  // convert from DOM to jQuery variable
                     $oneCard.css("top", "-20%");
                     }
                     k = 0;
-                    $("#action").fadeOut(function(){
+                    if ($("#auto-play-checked").css("visibility") === "hidden") {
                         $("#play-button").attr("disabled", false).removeClass("nohover");
-                    });
+                    }
                 }); 
+                $("#action").fadeOut(100)
                 $("#poker-chips-mine").css("visibility", "hidden").fadeIn(0).css("top", "52%").css("left", "55%");
                 $("#poker-chips-theirs").css("visibility", "hidden").fadeIn(0).css("top", "21%").css("left", "64%");
                 $("#total-bet").css("visibility", "hidden").fadeIn(0).css("top", "30%").css("left", "35%");
                 $("#my-bet").css("opacity", "1").css("visibility", "hidden").fadeIn(0).css("top", "53%").css("left", "63%");
                 $("#their-bet").css("opacity", "1").css("visibility", "hidden").fadeIn(0).css("top", "20%").css("left", "34%");
                 $("#win-or-loss").css("opacity", "1").css("visibility", "hidden").fadeIn(0);
+                cycleReady = true;
+                if (bankroll === 0 ) {
+                    $("#play-button").delay(2400).fadeIn(endGame);      // Just using fadeIn of 'play-button' as a random action to get 3000ms of delay. Play button not actually fading in, it's already visible
+                }
             };
 
             function call(){
@@ -700,7 +945,7 @@
                     }, function(){
                         $("#total-bet").css("visibility", "visible").text("$" + totalBet.toLocaleString("en")).delay(2000, function (){
                             var headsOrTails = Math.random();
-                            if(headsOrTails < 0.6) {
+                            if(headsOrTails < winPercent) {
                                 winAnimation();
                             }else {
                                 lossAnimation();
@@ -710,8 +955,6 @@
                 
             });
             };
-
-            
 
             function winAnimation(){
                 $("#win-or-loss").text("WIN").css("visibility", "visible").fadeOut(0).delay(700).fadeIn(winHeadAnimation).delay(700).fadeOut(function(){
@@ -738,7 +981,7 @@
             };
 
             function lossAnimation(){
-                $("#win-or-loss").text("LOSS").css("visibility", "visible").fadeOut(0).delay(700).fadeIn().delay(700).fadeOut(function(){
+                $("#win-or-loss").text("LOSS").css("visibility", "visible").delay(1400).fadeOut(function(){
                     $("#poker-chips-mine").animate({
                         top: "21%",
                         left: "64%"
@@ -773,6 +1016,68 @@
                     headBobCount = 0;
                 }
             }
+
+            function endGame() {
+                $("#grey-background").css("visibility", "visible");
+                $("#broke").css("visibility", "visible");
+                $("#hammer").css("left", mouseX - parseFloat($("#hammer").css("width"))/10 + "px");
+                $("#hammer").css("top", mouseY - parseFloat($("#hammer").css("height"))*1.09 + "px");
+                $("body").css("cursor", "none");
+                $(document).mousemove(function(event) {
+                    $("#hammer").css("left", event.pageX - parseFloat($("#hammer").css("width"))/10 + "px");
+                    $("#hammer").css("top", event.pageY - parseFloat($("#hammer").css("height"))*1.09 + "px");
+                });
+
+                $(document).mousedown(function() {
+                    $("#hammer").css("transform", "rotate(0deg)");
+                });
+
+                $(document).mouseup(function() {
+                    $("#hammer").css("transform", "rotate(30deg)");
+                });
+
+                $("#piggy-bank").click(function () {
+                    $("body").css("cursor", "auto");
+                    $("#grey-background").css("visibility", "hidden");
+                    $("#broke").css("visibility", "hidden");
+                    resetGame();
+                });
+            }
+
+            function resetGame() {
+                bankroll = 100;
+                gameProgressCount = 0;
+                stakes = 10;
+                winrate = 7; 
+                variance = 20;
+                averageBetSize = calcAveBetSize(variance, stakes);
+                winPercent = calcWinPercent(winrate, stakes, averageBetSize);
+                cycleReady = true;
+                handsPlayed = 0;
+
+                upgrade1Cost = 90;
+                upgrade2Cost = 100;
+                upgrade3Cost = 100;
+                upgrade4Cost = 100;
+
+                var elementsToHide = ["#upgrade-heading", "#auto-play", "#auto-play-box", "#auto-play-checked", "#upgrade-1", "#upgrade-2", 
+                "#upgrade-3", "#upgrade-4", "#higher-stakes", "#lower-stakes", "#winrate", "#hands-played", "#debug"];
+
+                for (var q = 0; q < elementsToHide.length; q++) {
+                    $(elementsToHide[q]).css("visibility", "hidden");
+                }
+                
+                $("#stakes").text("$" + stakes.toLocaleString("en"));
+                $("#hands-played").text(handsPlayed + " hands played");
+                $("#money").text("$" + bankroll.toLocaleString("en"));
+                $("#upgrade-1-cost").text("$" + upgrade1Cost.toLocaleString("en"));
+                $("#upgrade-2-cost").text("$" + upgrade2Cost.toLocaleString("en"));
+                $("#upgrade-3-cost").text("$" + upgrade3Cost.toLocaleString("en"));
+                $("#upgrade-4-cost").text("$" + upgrade4Cost.toLocaleString("en"));
+                $("#play-button").css("opacity", "1");
+                $("#play-button").attr("disabled", false).removeClass("nohover");
+            }
+
         </script>
     </body>
 </html>

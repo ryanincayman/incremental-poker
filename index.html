@@ -669,7 +669,7 @@
             // Buttons 
             $("#play-button").mousedown(function() {
                 playAHand();
-                if (gameProgressCount > 6) {                       // change how many play throughs are required before the first upgrade is visible
+                if (gameProgressCount === 6) {                       // change how many play throughs are required before the first upgrade is visible
                     $("#upgrade-heading").css("visibility", "visible");
                     $("#upgrade-1").css("visibility", "visible");
                 }  

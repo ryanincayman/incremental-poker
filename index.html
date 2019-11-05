@@ -272,6 +272,7 @@
                     padding-top: 45%;
                     background-color: grey;
                     opacity: 0.9;
+                    visibility: hidden;
                 }
 
                 #broke {
@@ -297,9 +298,10 @@
                     padding-top: 45%;
                     top: 0;
                     left: 3%;
-                    width: 90%;
+                    width: 97%;
                     text-align: left;
                     overflow: hidden;
+                    visibility: hidden;
                 }
 
                 #billionaire-font-size {
@@ -322,7 +324,7 @@
 
                 #money-cash {
                     position: absolute;
-                    right: 0;
+                    right: 2%;
                     top: 40%;
                     width: 25%;
                 }
@@ -635,7 +637,7 @@
         <div id="billionaire">
             <h1><br><span id="billionaire-font-size">
                 <span class="four-vw">Well done! &#128513;</span><br><br>
-                You made $1 billion in <span id="billionaire-hands">5203</span> hands<br><br>
+                You made $1 billion in <span id="billionaire-hands"></span> hands<br><br>
                 <span id="billionaire-ID">23432492348235239</span> is your unique ID to confirm you made $1 billion<br><br>
                 Join the others who also made $1 billion at <a href="https://www.reddit.com/r/incremental-poker/" target="_blank">reddit.com/r/incremental-poker</a><br><br>
                 <span class="four-vw">Welcome to the club!</span>
@@ -666,6 +668,9 @@
             var dealCardsCount = 0;
             var oneCard = $(".cards")[dealCardsCount];
             var $oneCard = $(oneCard);
+            var uniqueID = 0;
+            var uniqueIDString = "";
+            var pauseGame = false;
 
             /*--variables to tweak for game balance------------*/
 
@@ -716,6 +721,7 @@
 
             $("#action").fadeOut(0).css("opacity", "1"); // set #action as 'fadeOut' and opacity back to 1
             $("#hands-played").text(handsPlayed + " hands played");
+            $("#billionaire-hands").text(handsPlayed.toLocaleString("en"));
 
             /*------------------------------------------------------------------------*/
 
@@ -843,10 +849,10 @@
             }
 
             function playAHand() {
-                /*
-                if (bankroll === 0 || bankroll > 1000000000) {
+                
+                if (bankroll === 0 || pauseGame === true) {
                     return
-                }*/
+                }
 
                 gameProgressCount++;
 
@@ -871,6 +877,7 @@
                 $("#play-button").attr("disabled", true).addClass("nohover");
                 handsPlayed++;
                 $("#hands-played").text(handsPlayed + " hands played");
+                $("#billionaire-hands").text(handsPlayed.toLocaleString("en"));
                 cycleReady = false;
                 howMuchToBet = Math.random();
                 dealCardsCount = 0;

@@ -138,19 +138,19 @@
                     width: 10%;
                 }
 
+                button:active {
+                    transform: translateY(2px);
+                }
+
                 #male-face {
 
                     top: 60.5%;
                     left: 44.7%;
                 }
 
-                button:active {
-                    transform: translateY(2px);
-                }
-
                 #female-face {
                     left: 44.7%;
-                    top: 0;
+                    top: 0%;
                 }
 
                 #boy-1-face {
@@ -185,7 +185,7 @@
                     position: absolute;
                     width: 7%;
                     top: 21%;
-                    left: 64%;
+                    left: 43%;
                     visibility: hidden;
                 }
 
@@ -329,6 +329,10 @@
                     width: 25%;
                 }
 
+                .twist-right {
+                    transform: rotate(3deg);
+                }
+
                 #piggy-bank {
                     position: absolute;
                     left: 50%;
@@ -401,9 +405,9 @@
 
                 #their-bet {
                     position: absolute;
-                    top: 20%;
-                    left: 34%;
-                    width: 30%;
+                    top: 21%;
+                    left: 43%;
+                    width: 20%;
                     text-align: right;
                     visibility: hidden;
                 }
@@ -588,13 +592,16 @@
             
             <!-- play higher stakes button -->
             <button id="higher-stakes" type="button">Play higher stakes</button>
+
             <!-- play lower stakes button -->
             <button id="lower-stakes" type="button">Play lower stakes</button>
+
+            <!-- place to display winrate and hands played -->
                 <p>
                     <span id="winrate"></span><br><br>
                     <span id="hands-played"></span><br><br>
-                    <span id="debug"></span>
                 </p>
+
                 <div id="upgrades-container">
                     <div class="each-upgrade" id="upgrade-heading">
                         <h1>
@@ -623,6 +630,8 @@
                 </div>
         </div>
         <div id="grey-background"></div>
+
+        <!-- what to display when the player is broke -->
         <div id="broke">
             <h1><br><span id="broke-font-size">
                 You're broke! &#128517; <br>
@@ -634,13 +643,14 @@
             
         </div>
 
+        <!-- what to display when the player makes $1 billion -->
         <div id="billionaire">
             <h1><br><span id="billionaire-font-size">
                 <span class="four-vw">Well done! &#128513;</span><br><br>
                 You made $1 billion in <span id="billionaire-hands"></span> hands<br><br>
                 <span id="billionaire-ID"></span> is your unique ID to confirm you made $1 billion<br><br>
-                Join the others who also made $1 billion at <a href="https://www.reddit.com/r/incremental-poker/" target="_blank">reddit.com/r/incremental-poker</a><br><br>
-                <span class="four-vw">Welcome to the club!</span>
+                Join the others who also made $1 billion at <a href="https://www.reddit.com/r/incremental_poker/" target="_blank">reddit.com/r/incremental_poker</a><br><br>
+                <span class="four-vw">Welcome to the billionaires club!</span>
                 </span>
             </h1>
             <img id="money-cash" src="https://i.ibb.co/k8mvZzy/money.png" alt="money-cash">
@@ -651,7 +661,10 @@
 
             // Variable declaration
             var cardDealtPosition = ["52%", "46%", "24%", "19%", "25%", "49%", "52%", "48%", "22%", "19%", "26%", "46%"]; // The vertical position of the cards from the top
-
+            var theirChipsTop = ["52%", "33%", "20%", "21%", "37%"];
+            var theirChipsLeft = ["29%", "21%", "38%", "64%", "73%"];
+            var opponentsArray = ["#senior-happy-face", "#boy-1-face", "#female-face", "#senior-angry-face", "#boy-2-face"];
+            var avatarTop = ["51%", "6%", "0%", "5%", "52%"];
             var dealSpeed = 125;    // Sets the speed of dealing the cards in milliseconds
             var howMuchToBet = 0;
             var betSize = 0;
@@ -660,7 +673,7 @@
             var gameProgressCount = 0;
             var stakes = 10;
             var cycleReady = true;
-            var handsPlayed = 24234;
+            var handsPlayed = 0;
             var mouseX = 0; 
             var mouseY = 0;
             var upgrade2Level = 0;
@@ -671,11 +684,14 @@
             var uniqueID = 7817;
             var uniqueIDString = "";
             var pauseGame = false;
+            var opponent = 0;
 
             /*--variables to tweak for game balance------------*/
 
             // upgrade starting costs
-            var upgrade1Cost = 90;
+            var autoplayCost = 90;
+            var winrateCost = 150;
+            var handsCost = 999;
             var upgrade2Cost = 100;
             var upgrade3Cost = 100;
             var upgrade4Cost = 1000;
@@ -683,14 +699,14 @@
             var winrate = 7; 
             var bankroll = 100;
             var variance = 20;
-            var winratePerStake = 2.9;
+            var winratePerStake = 2.7;
             var winratePerHandReadingLevel = 1.7;
             var winratePerPokerFaceLevel = 1.2;
 
             var averageBetSize = calcAveBetSize(variance, stakes);
             var winPercent = calcWinPercent(winrate, stakes, averageBetSize);
             /*------------------------------------------------------------------------*/
-            // temp game set up while creating game
+            // make all upgrades visible for game tweaking 
             
             /*
             $("#higher-stakes").css("visibility", "visible");
@@ -708,7 +724,7 @@
 
             // Game set up
             $("#money").text("$" + bankroll.toLocaleString("en"));
-            $("#upgrade-1-cost").text("$" + upgrade1Cost.toLocaleString("en"));
+            $("#upgrade-1-cost").text("$" + autoplayCost.toLocaleString("en"));
             $("#upgrade-2-cost").text("$" + upgrade2Cost.toLocaleString("en"));
             $("#upgrade-3-cost").text("$" + upgrade3Cost.toLocaleString("en"));
             $("#upgrade-4-cost").text("$" + upgrade4Cost.toLocaleString("en"));
@@ -727,24 +743,23 @@
             // Buttons 
             $("#play-button").mousedown(function() {
                 playAHand();
-                if (gameProgressCount === 6) {                       // change how many play throughs are required before the first upgrade is visible
+                if (gameProgressCount === 6) {  // change how many play throughs are required before the first upgrade is visible
                     $("#upgrade-heading").css("visibility", "visible");
                     $("#upgrade-1").css("visibility", "visible");
                 }  
-
 
             });
 
             $("#higher-stakes").mousedown(function() {
                 if(stakes < 99000000) {
-                    if(stakes % 9 === 4) {
-                        stakes = stakes * 2.5;
+                    if(stakes % 9 === 4) {  // this will always return a remainder of 4 if the stake is a $400, $4000, etc. Then we multiply the stake by 2.5x to get to $1000 etc
+                        stakes = stakes * 2.5;  
                     }else {
-                    stakes = stakes * 2;
+                    stakes = stakes * 2; // if stake is $1000 or $2000, can just 2x the stake
                     }
                     $("#stakes").text("$" + stakes.toLocaleString("en"));
 
-                    winrate = Math.round((winrate - winratePerStake) * 10) / 10;
+                    winrate = Math.round((winrate - winratePerStake) * 10) / 10; // the math.round prevents 10.000000002 type output
                     averageBetSize = calcAveBetSize(variance, stakes);
                     winPercent = calcWinPercent(winrate, stakes, averageBetSize);
                     $("#winrate").html(winrate + " max bets per<br>100 hands");
@@ -754,14 +769,14 @@
             $("#lower-stakes").mousedown(function() {
                 
                 if(stakes > 19) {
-                    if(stakes % 9 === 1) {
+                    if(stakes % 9 === 1) {  // this will always return a remainder of 1 if the stake is a $100, $1000, etc. Then we divide the stake by 2.5x to get to $400 etc
                         stakes = stakes / 2.5;
                     }else {
                     stakes = stakes / 2;
                     }
                     $("#stakes").text("$" + stakes.toLocaleString("en"));
 
-                    winrate =  Math.round((winrate + winratePerStake) * 10) / 10;
+                    winrate =  Math.round((winrate + winratePerStake) * 10) / 10; // the math.round prevents 10.000000002 type output
                     averageBetSize = calcAveBetSize(variance, stakes);
                     winPercent = calcWinPercent(winrate, stakes, averageBetSize);
                     $("#winrate").html(winrate + " max bets per<br>100 hands");
@@ -777,17 +792,37 @@
                     $("#play-button").css("opacity", "1");
                 }
             });
-
+            
             $("#upgrade-1-button").mousedown(function() {
-                if (bankroll > upgrade1Cost) {
-                    bankroll = bankroll - upgrade1Cost;
+                if (bankroll > autoplayCost && $("#upgrade-1-button").text() === "Autoplay") {
+                    bankroll = bankroll - autoplayCost;
                     $("#money").text("$" + bankroll.toLocaleString("en"));
-                    $("#upgrade-1").css("visibility", "hidden");
+                    $("#upgrade-1-button").text("Show expected win rate");
+                    $("#upgrade-1-cost").text("$" + winrateCost);
                     $("#auto-play").css("visibility", "visible");
                     $("#auto-play-box").css("visibility", "visible");
+                    return
                 }
-            });
 
+                if (bankroll > winrateCost && $("#upgrade-1-button").text() === "Show expected win rate") {
+                    bankroll = bankroll - winrateCost;
+                    $("#money").text("$" + bankroll.toLocaleString("en"));
+                    $("#upgrade-1-button").text("Show hands played");
+                    $("#upgrade-1-cost").text("$" + handsCost);
+                    $("#winrate").css("visibility", "visible");
+                    return
+                }
+
+                if (bankroll > handsCost && $("#upgrade-1-button").text() === "Show hands played") {
+                    bankroll = bankroll - handsCost;
+                    $("#money").text("$" + bankroll.toLocaleString("en"));
+                    $("#hands-played").css("visibility", "visible");
+                    $("#upgrade-1").css("visibility", "hidden");
+                }
+                
+
+            });
+            
             $("#upgrade-2-button").mousedown(function() {
                 if (bankroll > upgrade2Cost) {
                     bankroll = bankroll - upgrade2Cost;
@@ -832,12 +867,9 @@
             });
 
 
-
             /*------------------------------------------------------------------------*/
 
             // Functions
-
-
 
             function calcAveBetSize (varianceInput, stakesInput) {
                 return (varianceInput / 100 + 0.5 * varianceInput / 100 + 0.1 * varianceInput / 100 + 0.2 * (1 - 4 * varianceInput / 100)) * stakesInput;
@@ -866,9 +898,8 @@
                 if (gameProgressCount > 150) {                       // change how many play throughs are required before the upgrade is visible
                     $("#upgrade-2").css("visibility", "visible");
                     $("#upgrade-3").css("visibility", "visible");
-                    $("#winrate").css("visibility", "visible");
-                    $("#hands-played").css("visibility", "visible");
                 }  
+
                 if (gameProgressCount > 500) {                       // change how many play throughs are required before the upgrade is visible
                     $("#upgrade-4").css("visibility", "visible");
                 }  
@@ -876,8 +907,8 @@
                 $("#play-button").attr("disabled", true).addClass("nohover");
                 handsPlayed++;
                 $("#hands-played").text(handsPlayed + " hands played");
-                cycleReady = false;
-                howMuchToBet = Math.random();
+                cycleReady = false;   // controls when to execute the autoplayfunction. cycleReady is false until the hand has been fully played out
+                howMuchToBet = Math.random(); 
                 dealCardsCount = 0;
                 dealCards();
                 if (howMuchToBet < variance / 100 ) {
@@ -916,12 +947,10 @@
                     }
                 }
                 totalBet = 2 * betSize;
-                $("#action").delay(2500)
-                .fadeIn(200, call);
+                $("#action").delay(2500).fadeIn(200, call);
             }
 
             function autoPlayFunction() {
-                // $("#debug").text(Math.round(winPercent*1000)/1000);
                 if ($("#auto-play-checked").css("visibility") === "visible" && cycleReady === true) {
                     $("#play-button").attr("disabled", true).addClass("nohover");
                     playAHand(); 
@@ -933,10 +962,10 @@
             function dealCards() {
                 $(".cards").fadeIn();
                 oneCard = $(".cards")[dealCardsCount];
-                $oneCard = $(oneCard);  // convert from DOM to jQuery variable
+                $oneCard = $(oneCard);  // convert from DOM nodes to jQuery object
                 $oneCard.animate({          // animate all the cards to fall down into their dealt positions
                     top: cardDealtPosition[dealCardsCount]
-                }, dealSpeed, dealCards
+                }, dealSpeed, dealCards // a recursive function which loops through until dealCardsCount exceeds the number of cards
                 )
                 dealCardsCount++;
             };
@@ -947,24 +976,86 @@
                 }, 300, fadeCards);
             }
 
+            function call(){
+
+                // pick an opposing player (random number between 0-4)
+                opponent = Math.floor(Math.random()*5);
+
+                // set the opposing player's initial chips and bet text position
+                $("#poker-chips-theirs").css("top", theirChipsTop[opponent]); 
+                $("#poker-chips-theirs").css("left", theirChipsLeft[opponent]);
+                $("#their-bet").css("top", theirChipsTop[opponent]);  // top position of the text is the same as the chips
+                $("#their-bet").css("left", (parseFloat(theirChipsLeft[opponent]) - 21) + "%");  // the position of their bet is their chips position shifted left by 21%
+
+                // animate my poker chips to the center
+                $("#poker-chips-mine").css("visibility", "visible").animate({
+                    top: "37%",
+                    left: "49%"
+                });
+
+                // animate their poker chips to the center
+                $("#poker-chips-theirs").css("visibility", "visible").animate({
+                    top: "37%",
+                    left: "43%"
+                });
+
+                // animate my bet to the center
+                $("#my-bet").css("visibility", "visible").text("$" + betSize.toLocaleString("en")).animate({
+                    top: "38%",
+                    left: "57%"
+                }, function(){  // update bankroll 
+                    bankroll = bankroll - betSize;
+                    $("#money").text("$" + bankroll.toLocaleString("en"));
+                    $("#my-bet").delay(700).animate({
+
+                        // animate my bet to move up and disappear 
+                        top: "30%",
+                        left: "48%",
+                        opacity: "0"
+                    });
+                });
+
+                // animate their bet to the middle
+                $("#their-bet").css("visibility", "visible").text("$" + betSize.toLocaleString("en")).animate({
+                    top: "38%",
+                    left: "22%"
+                }, function(){
+                    $("#their-bet").delay(700).animate({ // animate their bet to move up and disappear
+                    top: "30%",
+                    left: "30%",
+                    opacity: "0"
+                    }, function(){
+                        $("#total-bet").css("visibility", "visible").text("$" + totalBet.toLocaleString("en")).delay(2000, function (){
+                            var winOrLoss = Math.random();
+                            if(winOrLoss < winPercent) {
+                                winAnimation();
+                            }else {
+                                lossAnimation();
+                            }
+                        });
+                    });
+            
+                });
+            };
+
+
             function fadeCards() {
                 $(".cards").delay(500).fadeOut(function(){
-                    for (k = 0; k < $(".cards").length; k++) {
-                    oneCard = $(".cards")[k];
-                    $oneCard = $(oneCard);  // convert from DOM to jQuery variable
-                    $oneCard.css("top", "-20%");
+                    for (var i = 0; i < $(".cards").length; i++) {
+                    oneCard = $(".cards")[i];
+                    $oneCard = $(oneCard);  // convert from DOM node to jQuery object
+                    $oneCard.css("top", "-20%"); // move cards out of sight by making their top position -20%
                     }
-                    k = 0;
                     if ($("#auto-play-checked").css("visibility") === "hidden") {
                         $("#play-button").attr("disabled", false).removeClass("nohover");
                     }
                 }); 
-                $("#action").fadeOut(100)
+                $("#action").fadeOut(100);
                 $("#poker-chips-mine").css("visibility", "hidden").fadeIn(0).css("top", "52%").css("left", "55%");
-                $("#poker-chips-theirs").css("visibility", "hidden").fadeIn(0).css("top", "21%").css("left", "64%");
+                $("#poker-chips-theirs").css("visibility", "hidden").fadeIn(0);
                 $("#total-bet").css("visibility", "hidden").fadeIn(0).css("top", "30%").css("left", "35%");
                 $("#my-bet").css("opacity", "1").css("visibility", "hidden").fadeIn(0).css("top", "53%").css("left", "63%");
-                $("#their-bet").css("opacity", "1").css("visibility", "hidden").fadeIn(0).css("top", "20%").css("left", "34%");
+                $("#their-bet").css("opacity", "1").css("visibility", "hidden").fadeIn(0);
                 $("#win-or-loss").css("opacity", "1").css("visibility", "hidden").fadeIn(0);
                 cycleReady = true;
                 if (bankroll === 0 ) {
@@ -972,67 +1063,33 @@
                 }
                 if (bankroll > 1000000000 ) {
                     $("#play-button").delay(2400).fadeIn(win);      // Just using fadeIn of 'play-button' as a random action to get 2400ms of delay. Play button not actually fading in, it's already visible
+                    pauseGame = true;
                 }
             };
 
-            function call(){
-                $("#poker-chips-mine").css("visibility", "visible").animate({
-                    top: "37%",
-                    left: "49%"
-                });
-                $("#poker-chips-theirs").css("visibility", "visible").animate({
-                    top: "37%",
-                    left: "43%"
-                });
-                $("#my-bet").css("visibility", "visible").text("$" + betSize.toLocaleString("en")).animate({
-                    top: "38%",
-                    left: "57%"
-                }, function(){
-                    bankroll = bankroll - betSize;
-                    $("#money").text("$" + bankroll.toLocaleString("en"));
-                    $("#my-bet").delay(700).animate({
-                        top: "30%",
-                        left: "44%",
-                        opacity: "0"
-                    });
-                });
-                $("#their-bet").css("visibility", "visible").text("$" + betSize.toLocaleString("en")).animate({
-                    top: "38%",
-                    left: "12%"
-                }, function(){
-                    $("#their-bet").delay(700).animate({
-                        top: "30%",
-                        left: "25%",
-                        opacity: "0"
-                    }, function(){
-                        $("#total-bet").css("visibility", "visible").text("$" + totalBet.toLocaleString("en")).delay(2000, function (){
-                            var headsOrTails = Math.random();
-                            if(headsOrTails < winPercent) {
-                                winAnimation();
-                            }else {
-                                lossAnimation();
-                            }
-                        });
-                    });
-                
-            });
-            };
-
             function winAnimation(){
+                
+                // show WIN text result and run winHeadAnimation
                 $("#win-or-loss").text("WIN").css("visibility", "visible").fadeOut(0).delay(700).fadeIn(winHeadAnimation).delay(700).fadeOut(function(){
+                    
+                    // move my poker chips to me
                     $("#poker-chips-mine").animate({
                         top: "52%",
                         left: "55%"
                     });
+
+                    // move their poker chips to me
                     $("#poker-chips-theirs").animate({
                         top: "52%",
                         left: "55%"
                     });
+
+                    // the total bet follows the chips to me
                     $("#total-bet").clearQueue().animate({
                         top: "45%",
                         left: "44%",
                     }, function(){
-                        bankroll = bankroll + totalBet;
+                        bankroll = bankroll + totalBet;  // update bankroll with winnings
                         $("#money").text("$" + bankroll.toLocaleString("en"));
                         $("#total-bet").fadeOut();
                         $("#poker-chips-mine").fadeOut();
@@ -1043,19 +1100,27 @@
             };
 
             function lossAnimation(){
-                $("#win-or-loss").text("LOSS").css("visibility", "visible").delay(1400).fadeOut(function(){
+
+                // display LOSS text result and run loseHeadAnimation
+                $("#win-or-loss").text("LOSS").css("visibility", "visible").fadeOut(0).delay(700).fadeIn(loseHeadAnimation).delay(700).fadeOut(function(){
+
+                    // animating both mine and their poker chips to the opponent's chips position
                     $("#poker-chips-mine").animate({
-                        top: "21%",
-                        left: "64%"
+                        top: theirChipsTop[opponent],
+                        left: theirChipsLeft[opponent]
                     });
                     $("#poker-chips-theirs").animate({
-                        top: "21%",
-                        left: "64%"
+                        top: theirChipsTop[opponent],
+                        left: theirChipsLeft[opponent]
                     });
+
+                    // animating the total bet text to follow and stay above opponent's chips position
                     $("#total-bet").clearQueue().animate({
-                        top: "14%",
-                        left: "50%",
+                        top: (parseFloat(theirChipsTop[opponent]) - 7) + "%",
+                        left: (parseFloat(theirChipsLeft[opponent]) - 12) + "%",
                     }, function(){
+
+                        // fade out the total bet, the chips and fadeout the cards after the total bet and chips have faded out
                         $("#total-bet").fadeOut();
                         $("#poker-chips-mine").fadeOut();
                         $("#poker-chips-theirs").fadeOut(fadeCards);
@@ -1064,7 +1129,7 @@
                 });
             };
 
-            function winHeadAnimation(){
+            function winHeadAnimation(){  // recursive function to make a bobblehead
                 if (headBobCount < 14){
                     $("#male-face").animate({
                         top: "61.5%"
@@ -1078,7 +1143,22 @@
                     headBobCount = 0;
                 }
             }
-
+            
+            function loseHeadAnimation(){ // recursive function to make a bobblehead
+                if (headBobCount < 14){
+                    $(opponentsArray[opponent]).animate({
+                        top: (parseFloat(avatarTop[opponent]) + 1.5) + "%"
+                    }, 100, function(){
+                        headBobCount++
+                        $(opponentsArray[opponent]).animate({
+                            top: avatarTop[opponent]
+                        }, 10 * headBobCount, loseHeadAnimation);
+                });
+                }else {
+                    headBobCount = 0;
+                }
+            }
+            
             function endGame() {
                 $("#grey-background").css("visibility", "visible");
                 $("#broke").css("visibility", "visible");
@@ -1106,15 +1186,20 @@
                 });
             }
 
+            function toggleFunction () {
+                $("#money-cash").toggleClass("twist-right");
+            }
+
             function win() {
                 var randomOneToThousand = Math.ceil(Math.random() * 1000);
                 var uniqueVar1 = uniqueID * randomOneToThousand;
                 var uniqueVar2 = handsPlayed * randomOneToThousand;
                 uniqueIDString = uniqueVar1.toString() + uniqueVar2.toString();
-                $("#billionaire").text(uniqueIDString);
+                $("#billionaire-ID").text(uniqueIDString);
                 $("#billionaire-hands").text(handsPlayed.toLocaleString("en"));
                 $("#grey-background").css("visibility", "visible");
                 $("#billionaire").css("visibility", "visible");
+                var toggleForever = setInterval(toggleFunction, 150);
             }
 
             function resetGame() {
@@ -1127,27 +1212,27 @@
                 winPercent = calcWinPercent(winrate, stakes, averageBetSize);
                 cycleReady = true;
                 handsPlayed = 0;
+                pauseGame = false;
 
                 upgrade2Level = 0;
                 upgrade3Level = 0;
 
-                upgrade1Cost = 90;
                 upgrade2Cost = 100;
                 upgrade3Cost = 100;
                 upgrade4Cost = 1000;
 
 
                 var elementsToHide = ["#upgrade-heading", "#auto-play", "#auto-play-box", "#auto-play-checked", "#upgrade-1", "#upgrade-2", 
-                "#upgrade-3", "#upgrade-4", "#higher-stakes", "#lower-stakes", "#winrate", "#hands-played", "#debug"];
+                "#upgrade-3", "#upgrade-4", "#higher-stakes", "#lower-stakes", "#winrate", "#hands-played"];
 
-                for (var q = 0; q < elementsToHide.length; q++) {
-                    $(elementsToHide[q]).css("visibility", "hidden");
+                for (var i = 0; i < elementsToHide.length; i++) {
+                    $(elementsToHide[i]).css("visibility", "hidden");
                 }
                 
                 $("#stakes").text("$" + stakes.toLocaleString("en"));
                 $("#hands-played").text(handsPlayed + " hands played");
                 $("#money").text("$" + bankroll.toLocaleString("en"));
-                $("#upgrade-1-cost").text("$" + upgrade1Cost.toLocaleString("en"));
+                $("#upgrade-1-cost").text("$" + autoplayCost.toLocaleString("en"));
                 $("#upgrade-2-cost").text("$" + upgrade2Cost.toLocaleString("en"));
                 $("#upgrade-3-cost").text("$" + upgrade3Cost.toLocaleString("en"));
                 $("#upgrade-4-cost").text("$" + upgrade4Cost.toLocaleString("en"));

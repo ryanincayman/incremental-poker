@@ -1204,39 +1204,16 @@
 
             function resetGame() {
                 bankroll = 200;
-                gameProgressCount = 0;
-                stakes = 10;
-                winrate = 7; 
-                variance = 20;
                 averageBetSize = calcAveBetSize(variance, stakes);
                 winPercent = calcWinPercent(winrate, stakes, averageBetSize);
                 cycleReady = true;
                 handsPlayed = 0;
                 pauseGame = false;
-
-                upgrade2Level = 0;
-                upgrade3Level = 0;
-
-                upgrade2Cost = 100;
-                upgrade3Cost = 100;
-                upgrade4Cost = 1000;
-
-
-                var elementsToHide = ["#upgrade-heading", "#auto-play", "#auto-play-box", "#auto-play-checked", "#upgrade-1", "#upgrade-2", 
-                "#upgrade-3", "#upgrade-4", "#higher-stakes", "#lower-stakes", "#winrate", "#hands-played"];
-
-                for (var i = 0; i < elementsToHide.length; i++) {
-                    $(elementsToHide[i]).css("visibility", "hidden");
-                }
                 
+                $("#auto-play-checked").css("visibility", "hidden");
                 $("#stakes").text("$" + stakes.toLocaleString("en"));
                 $("#hands-played").text(handsPlayed + " hands played");
                 $("#money").text("$" + bankroll.toLocaleString("en"));
-                $("#upgrade-1-button").text("Autoplay");
-                $("#upgrade-1-cost").text("$" + autoplayCost.toLocaleString("en"));
-                $("#upgrade-2-cost").text("$" + upgrade2Cost.toLocaleString("en"));
-                $("#upgrade-3-cost").text("$" + upgrade3Cost.toLocaleString("en"));
-                $("#upgrade-4-cost").text("$" + upgrade4Cost.toLocaleString("en"));
                 $("#play-button").css("opacity", "1");
                 $("#play-button").prop("disabled", false).removeClass("nohover");
             }

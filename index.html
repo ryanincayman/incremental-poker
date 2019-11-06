@@ -689,7 +689,7 @@
             /*--variables to tweak for game balance------------*/
 
             // upgrade starting costs
-            var autoplayCost = 90;
+            var autoplayCost = 50;
             var winrateCost = 150;
             var handsCost = 999;
             var upgrade2Cost = 100;
@@ -697,9 +697,9 @@
             var upgrade4Cost = 1000;
 
             var winrate = 7; 
-            var bankroll = 100;
+            var bankroll = 200;
             var variance = 20;
-            var winratePerStake = 2.7;
+            var winratePerStake = 1.9;
             var winratePerHandReadingLevel = 1.7;
             var winratePerPokerFaceLevel = 1.2;
 
@@ -743,7 +743,7 @@
             // Buttons 
             $("#play-button").mousedown(function() {
                 playAHand();
-                if (gameProgressCount === 6) {  // change how many play throughs are required before the first upgrade is visible
+                if (gameProgressCount === 5) {  // change how many play throughs are required before the first upgrade is visible
                     $("#upgrade-heading").css("visibility", "visible");
                     $("#upgrade-1").css("visibility", "visible");
                 }  
@@ -887,20 +887,20 @@
 
                 gameProgressCount++;
 
-                if (gameProgressCount > 50) {                       // change how many play throughs are required before the upgrade is visible
+                if (gameProgressCount > 20) {                       // change how many play throughs are required before the upgrade is visible
                     $("#higher-stakes").css("visibility", "visible");
                 }  
 
-                if (gameProgressCount > 50) {                       // change how many play throughs are required before the upgrade is visible
+                if (gameProgressCount > 20) {                       // change how many play throughs are required before the upgrade is visible
                     $("#lower-stakes").css("visibility", "visible");
                 }  
 
-                if (gameProgressCount > 150) {                       // change how many play throughs are required before the upgrade is visible
+                if (gameProgressCount > 35) {                       // change how many play throughs are required before the upgrade is visible
                     $("#upgrade-2").css("visibility", "visible");
                     $("#upgrade-3").css("visibility", "visible");
                 }  
 
-                if (gameProgressCount > 500) {                       // change how many play throughs are required before the upgrade is visible
+                if (gameProgressCount > 100) {                       // change how many play throughs are required before the upgrade is visible
                     $("#upgrade-4").css("visibility", "visible");
                 }  
 
@@ -1203,7 +1203,7 @@
             }
 
             function resetGame() {
-                bankroll = 100;
+                bankroll = 200;
                 gameProgressCount = 0;
                 stakes = 10;
                 winrate = 7; 

@@ -904,7 +904,7 @@
                     $("#upgrade-4").css("visibility", "visible");
                 }  
 
-                $("#play-button").attr("disabled", true).addClass("nohover");
+                $("#play-button").prop("disabled", true).addClass("nohover");
                 handsPlayed++;
                 $("#hands-played").text(handsPlayed + " hands played");
                 cycleReady = false;   // controls when to execute the autoplayfunction. cycleReady is false until the hand has been fully played out
@@ -952,7 +952,7 @@
 
             function autoPlayFunction() {
                 if ($("#auto-play-checked").css("visibility") === "visible" && cycleReady === true) {
-                    $("#play-button").attr("disabled", true).addClass("nohover");
+                    $("#play-button").prop("disabled", true).addClass("nohover");
                     playAHand(); 
                 }
             }
@@ -1047,7 +1047,7 @@
                     $oneCard.css("top", "-20%"); // move cards out of sight by making their top position -20%
                     }
                     if ($("#auto-play-checked").css("visibility") === "hidden") {
-                        $("#play-button").attr("disabled", false).removeClass("nohover");
+                        $("#play-button").prop("disabled", false).removeClass("nohover");
                     }
                 }); 
                 $("#action").fadeOut(100);
@@ -1232,12 +1232,13 @@
                 $("#stakes").text("$" + stakes.toLocaleString("en"));
                 $("#hands-played").text(handsPlayed + " hands played");
                 $("#money").text("$" + bankroll.toLocaleString("en"));
+                $("#upgrade-1-button").text("Autoplay");
                 $("#upgrade-1-cost").text("$" + autoplayCost.toLocaleString("en"));
                 $("#upgrade-2-cost").text("$" + upgrade2Cost.toLocaleString("en"));
                 $("#upgrade-3-cost").text("$" + upgrade3Cost.toLocaleString("en"));
                 $("#upgrade-4-cost").text("$" + upgrade4Cost.toLocaleString("en"));
                 $("#play-button").css("opacity", "1");
-                $("#play-button").attr("disabled", false).removeClass("nohover");
+                $("#play-button").prop("disabled", false).removeClass("nohover");
             }
 
         </script>

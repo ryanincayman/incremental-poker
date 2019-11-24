@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="icon" href="https://i.ibb.co/10g7XTP/favicon-incremental-poker.png">
+        <meta charset="utf-8">
+        <title>Incremental Poker</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <div id="left-frame">
+            <img id="poker-table" src="https://www.sccpre.cat/mypng/full/321-3212694_poker-table-png-forgetmenot-online-poker-table-png.png" alt="poker-table">
+            <img class= "avatars" id="male-face" src="https://i.ibb.co/MMKWVWP/avatar-adult-male-transparent.png" alt="male-face">
+            <img class= "avatars" id="senior-happy-face" src="https://i.ibb.co/Vw5M7hS/avatar-senior-male-happy-transparent.png" alt="senior-happy-face">
+            <img class= "avatars" id="boy-1-face" src="https://i.ibb.co/zHYyNmq/avatar-child-boy-transparent.png" alt="boy-1-face">
+            <img class= "avatars" id="female-face" src="https://i.ibb.co/dJmgmnP/avatar-adult-woman-transparent.png" alt="female-face">
+            <img class= "avatars" id="senior-angry-face" src="https://i.ibb.co/Pgs9f4Z/avatar-senior-male-grumpy-transparent.png" alt="senior-angry-face">
+            <img class= "avatars" id="boy-2-face" src="https://i.ibb.co/wyj4nHF/avatar-child-boy-2-transparent.png" alt="boy-2-face">
+            <img id="poker-chips-theirs" src="https://i.ibb.co/6vC2Gqj/poker-chips.png" alt="poker-chips">
+            <img id="poker-chips-mine" src="https://i.ibb.co/6vC2Gqj/poker-chips.png" alt="poker-chips">
+            <img class="cards player-card" id="male-card-left" src="https://i.ibb.co/B6fSHSL/card-back.png" alt="playing-card">
+            <img class="cards" id="senior-happy-card-left" src="https://i.ibb.co/B6fSHSL/card-back.png" alt="playing-card">
+            <img class="cards" id="boy-1-card-left" src="https://i.ibb.co/B6fSHSL/card-back.png" alt="playing-card">
+            <img class="cards" id="female-card-left" src="https://i.ibb.co/B6fSHSL/card-back.png" alt="playing-card">
+            <img class="cards" id="senior-angry-card-left" src="https://i.ibb.co/B6fSHSL/card-back.png" alt="playing-card">
+            <img class="cards" id="boy-2-card-left" src="https://i.ibb.co/B6fSHSL/card-back.png" alt="playing-card">
+            <img class="cards player-card" id="male-card-right" src="https://i.ibb.co/B6fSHSL/card-back.png" alt="playing-card">
+            <img class="cards" id="senior-happy-card-right" src="https://i.ibb.co/B6fSHSL/card-back.png" alt="playing-card">
+            <img class="cards" id="boy-1-card-right" src="https://i.ibb.co/B6fSHSL/card-back.png" alt="playing-card">
+            <img class="cards" id="female-card-right" src="https://i.ibb.co/B6fSHSL/card-back.png" alt="playing-card">
+            <img class="cards" id="senior-angry-card-right" src="https://i.ibb.co/B6fSHSL/card-back.png" alt="playing-card">
+            <img class="cards" id="boy-2-card-right" src="https://i.ibb.co/B6fSHSL/card-back.png" alt="playing-card">
+            <div class="text-info" id="action">Fold</div>
+            <div class="text-info" id="total-bet">$500,000</div>
+            <div class="text-info" id="my-bet">$250,000</div>
+            <div class="text-info" id="their-bet">$250,000</div>
+            <div class="text-info" id="win-or-loss">WIN</div>
+            <div class="text-info" id="stakesDiv">Stakes: <strong><span id="stakes">$10</span></strong> max bet</div>
+            <div class="text-info" id="auto-play">Autoplay</div>
+            <div id="auto-play-box">
+                <div id="auto-play-checked"></div>
+            </div>
+            <div id="money"></div>
+            <img id="audio-symbol" src="https://i.ibb.co/JHp7gzj/audio-symbol.png" alt="audio-symbol">
+            <img id="no-symbol" src="https://i.ibb.co/vjcFsNq/no-symbol.png" alt="no-symbol">
+
+            <button id="play-button" type="button">Play a hand</button>
+        </div>
+        <div id="right-frame">
+            
+            <button id="higher-stakes" type="button">Play higher stakes</button>
+
+            <button id="lower-stakes" type="button">Play lower stakes</button>
+
+            <!-- place to display winrate and hands played -->
+                <p>
+                    <span id="winrate"></span><br><br>
+                    <span id="hands-played"></span><br><br>
+                </p>
+
+                <div id="upgrades-container">
+                    <div class="each-upgrade" id="upgrade-heading">
+                        <h1>
+                            Pay for coaching
+                        </h1>
+                    </div>
+                    <div class="each-upgrade" id="upgrade-1">
+                        <h3 id="upgrade-1-cost"></h3>
+                        <button class="upgrade-button-class" id="upgrade-1-button" type="button">Autoplay</button>
+                    </div>
+                    <div class="each-upgrade" id="upgrade-2">
+                        <h3 id="upgrade-2-cost"></h3>
+                        <button class="upgrade-button-class" id="upgrade-2-button" type="button">Improve hand reading</button>
+                        <h2 id="upgrade-2-level"></h2>
+                    </div>
+                    <div class="each-upgrade" id="upgrade-3">
+                        <h3 id="upgrade-3-cost"></h3>
+                        <button class="upgrade-button-class" id="upgrade-3-button" type="button">Improve poker face</button>
+                        <h2 id="upgrade-3-level"></h2>
+                    </div>
+                    <div class="each-upgrade" id="upgrade-4">
+                        <h3 id="upgrade-4-cost"></h3>
+                        <button class="upgrade-button-class" id="upgrade-4-button" type="button">Lower variance play style</button>
+                        <h2 id="upgrade-4-level"></h2>
+                    </div>
+                </div>
+        </div>
+        <div id="grey-background"></div>
+
+        <!-- what to display when the player is broke -->
+        <div id="broke">
+            <h1><br><span id="broke-font-size">
+                You're broke! &#128517; <br>
+                Smash your piggy bank<br>
+                to try again</span>
+            </h1>
+            <img id="piggy-bank" src="https://i.ibb.co/jrtjdDH/piggy-bank.png" alt="piggy-bank">
+            <img id="hammer" src="https://i.ibb.co/72JGt56/hammer.png" alt="hammer">
+            
+        </div>
+
+        <!-- what to display when the player makes $1 billion -->
+        <div id="billionaire">
+            <h1><br><span id="billionaire-font-size">
+                <span class="four-vw">Well done! &#128513;</span><br><br>
+                You made $1 billion in <span id="billionaire-hands"></span> hands<br><br>
+                <span id="billionaire-ID"></span> is your unique ID to confirm you made $1 billion<br><br>
+                Join the others who also made $1 billion at <a href="https://www.reddit.com/r/incremental_poker/" target="_blank">reddit.com/r/incremental_poker</a><br><br>
+                <span class="four-vw">Welcome to the billionaires club!</span>
+                </span>
+            </h1>
+            <img id="money-cash" src="https://i.ibb.co/k8mvZzy/money.png" alt="money-cash">
+        </div>
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+        <script src="main.js"></script>
+    </body>
+</html>
